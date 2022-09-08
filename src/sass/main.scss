@@ -5,16 +5,9 @@
 @import './base/index';
 @import './base/typography';
 
-@import './modules/banner';
-@import './modules/card';
-@import './modules/collapse';
-@import './modules/lightbox';
+@import './modules/topMessage';
 
-@import './layout/description';
-@import './layout/gallery';
-@import './layout/info';
 @import './layout/header';
 @import './layout/sidebar';
 
-@import './pages/aPropos';
-@import './pages/erreur';
+@import './pages/home';

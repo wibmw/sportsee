@@ -36,9 +36,6 @@ nav {
 /**************** Responsive ****************/
 @media screen and (max-width: 768px) {
   .header {
-    &_logo {
-      @include wh(160px, 80px);
-    }
     &_link {
       text-transform: uppercase;
       font-size: 12px;

@@ -1,9 +1,0 @@
-/**************** A propos Page ****************/
-#Apropos {
-  width: 80%;
-  @include flex-column-center;
-  flex: 1 0 auto;
-  gap: 30px;
-  margin-top: 30px;
-  @include margin-center;
-}

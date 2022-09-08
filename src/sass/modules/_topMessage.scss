@@ -1,0 +1,16 @@
+/**************** Bannière ****************/
+.top_message {
+  // Banner Image
+  &_name {
+    font-size: 48px;
+    span {
+      color: red;
+    }
+  }
+  // Banner Text
+  &_text {
+    font-size: 18px;
+    font-weight: 400;
+  }
+}
+/**************** Responsive ****************/

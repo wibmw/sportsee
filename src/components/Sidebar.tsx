@@ -24,7 +24,7 @@ const Sidebar = () => {
         </NavLink>
       </nav>
       {/** *********** sidebar text ******************/}
-      <div className='sidebar_text'>© 2020 Kasa. All rights reserved</div>
+      <div className='sidebar_text'>Copiryght, SportSee 2020</div>
     </aside>
   )
 }
