@@ -1,0 +1,113 @@
+/**************** Apartment Info ****************/
+.info {
+  @include wh-100;
+  @include flex-row-center;
+  justify-content: space-between;
+  font-weight: 500;
+  // Left Info Block
+  &_leftBlock {
+    // Apartment Title
+    h1 {
+      font-size: 36px;
+      color: $primary-color;
+      font-weight: 500;
+      @include margin-tb(0px, 0px);
+    }
+    // Apartment Location
+    p {
+      font-size: 18px;
+      color: $primary-color;
+      @include margin-tb(10px, 30px);
+    }
+    // Apartment Tags
+    &_tags {
+      margin-top: 10px;
+      span {
+        font-size: 14px;
+        padding: 5px 25px 5px 25px;
+        margin-right: 10px;
+        border-radius: 10px;
+        color: $back-white;
+        background-color: $primary-color;
+      }
+    }
+  }
+  // Right Info Block
+  &_rightBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    &_host {
+      display: flex;
+      flex-direction: row;
+      // Host Name
+      p {
+        color: $primary-color;
+        width: min-content;
+        text-align: right;
+        font-size: 18px;
+        margin-right: 10px;
+      }
+      // Host Picture
+      img {
+        @include wh(64px, 64px);
+        border-radius: 50%;
+      }
+    }
+    // Host Rating with Stars
+    &_ratings {
+      width: max-content;
+      .stars {
+        margin-top: 19px;
+        @include wh(30px, 30px);
+      }
+    }
+  }
+}
+/**************** Responsive ****************/
+@media screen and (max-width: 768px) {
+  .info {
+    flex-direction: column;
+    align-items: normal;
+    &_leftBlock {
+      h1 {
+        font-size: 18px;
+      }
+      p {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      &_tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        span {
+          font-size: 10px;
+        }
+      }
+    }
+    &_rightBlock {
+      margin-top: 10px;
+      flex-direction: row-reverse;
+      align-items: stretch;
+      justify-content: space-between;
+      &_host {
+        p {
+          @include margin-tb(0px, 20px);
+          font-size: 12px;
+        }
+        img {
+          @include wh(32px, 32px);
+        }
+      }
+      &_ratings {
+        width: max-content;
+        .stars {
+          margin-top: 10px;
+          @include wh(15px, 15px);
+        }
+      }
+    }
+  }
+}

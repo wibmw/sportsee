@@ -1,0 +1,62 @@
+/******************* Global Flex ************************/
+@mixin flex {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@mixin flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin flex-row-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+/******************* Center of the page *******************/
+@mixin align-center {
+  width: 100%;
+  text-align: center;
+}
+
+@mixin margin-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/******************* Margin *******************/
+
+@mixin margin-tb($top,$bot) {
+  margin-top: $top;
+  margin-bottom: $bot;
+}
+
+@mixin margin-lr($left,$right) {
+  margin-left: $left;
+  margin-right: $right;
+}
+
+/******************* Width and height *******************/
+@mixin wh-100 {
+  width: 100%;
+  height: 100%;
+}
+@mixin wh($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+/******************* Accessibility ************************/
+@mixin focus-visible {
+  outline: 3px solid $primary-color;
+  border-radius: 10px;
+}

@@ -1,0 +1,22 @@
+/**************** Gallery ****************/
+.gallery {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex: 1 0 auto;
+  gap: 50px;
+  padding: 50px;
+  @include margin-tb(40px,40px);
+  background-color: $light-grey;
+  border-radius: 20px;
+}
+/**************** Responsive ****************/
+@media screen and (max-width: 768px) {
+  .gallery {
+    gap: 20px;
+    padding: 0px;
+    background-color: $back-white;
+    @include margin-tb(20px,20px);
+  }
+}

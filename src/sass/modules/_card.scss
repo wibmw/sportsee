@@ -1,0 +1,30 @@
+/**************** Card ****************/
+.card {
+  @include wh(340px, 340px);
+  position: relative;
+  background-color: $dark-grey;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 10px;
+  // Card Image
+  &_image {
+    @include wh-100;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  // Card Title
+  &_title {
+    position: absolute;
+    @include margin-lr(30px, 30px);
+    font-size: 18px;
+    color: $back-white;
+    font-weight: 500;
+  }
+}
+/**************** Responsive ****************/
+@media screen and (max-width: 768px) {
+  .card {
+    @include wh(85.5vw, 255px);
+    min-width: 320px;
+  }
+}
