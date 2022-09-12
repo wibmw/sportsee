@@ -1,14 +1,18 @@
-const TopMessage = () => {
+import { IUserInfos } from '../api/Interfaces'
+
+const TopMessage = ({ firstName, lastName, age }: IUserInfos) => {
+  console.log(firstName + ' /n' + lastName + ' /n' + age)
+
   return (
     /** *********** Banner Component ******************/
-    <div className='top_message'>
+    <article className='top_message'>
       {/** *********** Banner Image ******************/}
       <h1 className='top_message_name'>
-        Bonjour <span>Thomas</span>
+        Bonjour <span>{firstName + ' ' + lastName + ' ' + age}</span>
       </h1>
       {/** *********** Banner Text ******************/}
       <p className='top_message_text'>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
-    </div>
+    </article>
   )
 }
 
