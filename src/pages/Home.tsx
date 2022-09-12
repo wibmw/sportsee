@@ -2,15 +2,12 @@ import React from 'react'
 import User from '../api/User'
 import SideBar from '../components/Sidebar'
 import TopMessage from '../components/TopMessage'
-import PropTypes from 'prop-types'
-import { IUserInfos } from '../api/Interfaces'
+import { IUserInfos, userInfosProps } from '../api/Interfaces'
 
 const Home = () => {
   const user: User = new User('12')
 
-  console.log(user && user.getUserInfos())
-  console.log(user && user.getSessionsAverage())
-  console.log(user && user.getSessionsActivity())
+  const userInfos:userInfosProps = user && user.getUserInfos()
   // const todayScore = user && user.getTodayScore()
 
   return (
@@ -21,17 +18,13 @@ const Home = () => {
             {/** *********** Home SideBar ******************/}
             <SideBar />
             <div id='charts_block'>
-              <TopMessage />
+              <TopMessage userInfos={userInfos} />
             </div>
           </section>
         </>
       )}
     </React.Fragment>
   )
-}
-
-Home.propTypes = {
-  userInfos: PropTypes.object,
 }
 
 export default Home

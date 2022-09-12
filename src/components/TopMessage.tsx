@@ -1,6 +1,6 @@
-import { IUserInfos } from '../api/Interfaces'
+import { IUserInfos, userInfosProps } from '../api/Interfaces'
 
-const TopMessage = ({ firstName, lastName, age }: IUserInfos) => {
+const TopMessage = (userInfos: userInfosProps) => {
   console.log(firstName + ' /n' + lastName + ' /n' + age)
 
   return (

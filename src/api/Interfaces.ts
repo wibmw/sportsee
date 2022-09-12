@@ -48,3 +48,9 @@ export interface IActivitySessions {
   day: number
   sessionLength: number
 }
+
+export type userInfosProps = {
+  firstName?: string
+  lastName?: string
+  age?: number
+}

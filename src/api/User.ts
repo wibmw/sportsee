@@ -1,6 +1,6 @@
 // import { IUser } from './Interfaces'
 import { getDatas } from './Api'
-import { IUserInfos, IKeyData, IAverage, IActivity, IPerformance } from './Interfaces'
+import { IUserInfos, IKeyData, IAverage, IActivity, IPerformance, IValues } from './Interfaces'
 
 class User {
   protected readonly id: string
@@ -43,11 +43,11 @@ class User {
   getPerformance(): IPerformance {
     const data = getDatas(this.id + '/performance', 'data')
     const kinds = getDatas(this.id + '/performance', 'kind')
-const performances: IPerformance
+const performances = Array[IValues]
     data.map(data => {performances.push(['value':data && data.value, 'kind': kinds && kinds[data.kind]])
 
     })
-    return performances ? performances : ({} as IPerformance)
+    return performances ? performances : []
   }
 }
 
