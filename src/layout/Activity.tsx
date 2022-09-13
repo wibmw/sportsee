@@ -10,10 +10,10 @@ const Activity: FC<IKeyData> = ({ calorieCount, proteinCount, carbohydrateCount,
   return (
     /** *********** Banner Component ******************/
     <div className='activity'>
-      <ActivityItem icon={proteinIcon} value={calorieCount} name='Calories' />
-      <ActivityItem icon={caloriesIcon} value={proteinCount} name='Protéines' />
-      <ActivityItem icon={carbsIcon} value={carbohydrateCount} name='Glucides' />
-      <ActivityItem icon={fatIcon} value={lipidCount} name='Lipides' />
+      <ActivityItem icon={proteinIcon} value={calorieCount} name='Calories' unit='cal' />
+      <ActivityItem icon={caloriesIcon} value={proteinCount} name='Protéines' unit='g' />
+      <ActivityItem icon={carbsIcon} value={carbohydrateCount} name='Glucides' unit='g' />
+      <ActivityItem icon={fatIcon} value={lipidCount} name='Lipides' unit='g' />
     </div>
   )
 }

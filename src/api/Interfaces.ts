@@ -23,6 +23,7 @@ export interface IActivityItem {
   icon: string
   value: number
   name: string
+  unit: string
 }
 
 // Average Interfaces
