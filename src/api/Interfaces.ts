@@ -19,6 +19,12 @@ export interface IKeyData {
   lipidCount: number
 }
 
+export interface IActivityItem {
+  icon: string
+  value: number
+  name: string
+}
+
 // Average Interfaces
 export interface IAverage {
   sessions: IAverageSessions[]
@@ -31,12 +37,13 @@ export interface IAverageSessions {
 
 // Perforrmance Interfaces
 export interface IPerformance {
-  performances: [IValues]
+  performances: IValues[]
 }
 
 export interface IValues {
-  value: string
-  kind: string
+  [key: string]: string | number
+  value: number
+  kind: number
 }
 
 // Activity Interfaces

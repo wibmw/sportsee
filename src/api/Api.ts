@@ -6,7 +6,7 @@ const client = axios.create({
 })
 
 export const getDatas = (url: string, dataParam: string) => {
-  const [data, setData] = useState()
+  const [data, setData] = useState<any>()
   const conf: AxiosRequestConfig = {}
 
   conf.validateStatus = (status: number) => {
@@ -15,7 +15,7 @@ export const getDatas = (url: string, dataParam: string) => {
 
   // Fetch data from the API
   useEffect(() => {
-    client.get(url, conf).then((res: AxiosResponse) => {
+    client.get<[]>(url, conf).then((res: AxiosResponse) => {
       if (res.status >= 200 && res.status < 300) setData(res.data.data[dataParam])
       else console.error('404 : No user found !')
     })

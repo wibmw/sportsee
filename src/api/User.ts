@@ -31,6 +31,7 @@ class User {
   // Get Sessions Average Datas
   getSessionsAverage(): IAverage {
     const sessions = getDatas(this.id + '/average-sessions', 'sessions')
+
     return sessions ? sessions : ({} as IAverage)
   }
   // Get Sessions Activity Datas
@@ -40,13 +41,18 @@ class User {
     return sessions ? sessions : ({} as IActivity)
   }
   // Get Performance Datas
-  getPerformance(): IPerformance {
-    const data = getDatas(this.id + '/performance', 'data')
+  getPerformances() {
+    const data: [] = getDatas(this.id + '/performance', 'data')
     const kinds = getDatas(this.id + '/performance', 'kind')
-const performances = Array[IValues]
-    data.map(data => {performances.push(['value':data && data.value, 'kind': kinds && kinds[data.kind]])
+    const performances: IValues[] = []
 
-    })
+    data &&
+      data.map((perf: IValues) => {
+        performances.push({ value: perf && perf.value, kind: kinds && kinds[perf.kind] })
+      })
+
+    console.log(performances)
+
     return performances ? performances : []
   }
 }

@@ -27,8 +27,7 @@
 }
 
 nav {
-  width: -webkit-fill-available;
-  width: -moz-available;
+  width: stretch;
   display: flex;
   justify-content: space-around;
   align-items: center;
