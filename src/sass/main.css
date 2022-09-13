@@ -13,16 +13,22 @@ body {
 }
 
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 #root {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 body {
-  font-family: "Roboto", "DM Sans", sans-serif;
+  font-family: 'Roboto', 'DM Sans', sans-serif;
   font-size: 100%;
 }
 
@@ -30,9 +36,11 @@ body {
 .top_message_name {
   font-size: 48px;
 }
+
 .top_message_name span {
   color: red;
 }
+
 .top_message_text {
   font-size: 18px;
   font-weight: 400;
@@ -43,20 +51,29 @@ body {
 .header {
   width: 100%;
   height: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-shrink: 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   padding: 20px;
   background-color: black;
   /*& .active {
     text-decoration: underline;
   }*/
 }
+
 .header_logo {
   width: 178px;
   height: 61px;
 }
+
 .header_link {
   font-size: 24px;
   color: white;
@@ -68,10 +85,17 @@ body {
 }
 
 nav {
+  width: -webkit-fill-available;
+  width: -moz-available;
   width: stretch;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 /**************** Responsive ****************/
@@ -82,45 +106,71 @@ nav {
     margin-left: 10px;
   }
 }
+
 @media screen and (max-width: 360px) {
   .header_link {
     font-size: 10px;
     margin-left: 5px;
   }
 }
+
 /**************** Footer ****************/
 .sidebar {
   width: 120px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   background-color: black;
   z-index: -1;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   height: auto;
-  justify-content: space-around;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
+
 .sidebar nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: 20px;
 }
+
 .sidebar_text {
   color: white;
   font-size: 12px;
-  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
   white-space: nowrap;
 }
+
 .sidebar_logo {
   width: 64px;
 }
 
 /**************** Responsive ****************/
 .activity {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 39px;
-  flex-direction: column;
-  flex-wrap: nowrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
 }
+
 .activity_item {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 258px;
   height: 124px;
@@ -128,13 +178,16 @@ nav {
   border-radius: 5px;
   padding: 32px;
 }
+
 .activity_item_icon {
   width: 60px;
   height: 60px;
 }
+
 .activity_item_text {
   margin-left: 24px;
 }
+
 .activity_item_text p {
   font-weight: 700;
   font-size: 20px;
@@ -142,6 +195,7 @@ nav {
   color: #282d30;
   margin: 0;
 }
+
 .activity_item_text h3 {
   font-size: 14px;
   font-weight: 500;
@@ -154,11 +208,12 @@ nav {
 
 /**************** Home Page ****************/
 #main_section {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
 #charts_block {
   padding: 65px 105px 65px 105px;
 }
-
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=main.css.map */
