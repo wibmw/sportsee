@@ -2,17 +2,17 @@ import React from 'react'
 import User from '../api/User'
 import SideBar from '../components/Sidebar'
 import TopMessage from '../components/TopMessage'
-import { IKeyData, IUserInfos } from '../api/Interfaces'
 import Activity from '../layout/Activity'
+import BarChart from '../layout/BarChart'
 
 const Home = () => {
   const user: User = new User('12')
-  user.getPerformances()
 
-  const { firstName, lastName, age }: IUserInfos = user && user.getUserInfos()
-  const { calorieCount, proteinCount, carbohydrateCount, lipidCount }: IKeyData =
-    user && user.getKeyData()
-  const test = user && user.getPerformances()
+  const userInfo = user && user.getUserInfos()
+  const { calorieCount, proteinCount, carbohydrateCount, lipidCount } = user && user.getKeyData()
+  const sessionsActivity = user && user.getSessionsActivity()
+
+  console.log(sessionsActivity && sessionsActivity)
   // const todayScore = user && user.getTodayScore()
 
   return (
@@ -23,8 +23,10 @@ const Home = () => {
             {/** *********** Home SideBar ******************/}
             <SideBar />
             <div id='charts_block'>
-              <TopMessage firstName={firstName} lastName={lastName} age={age} />
-              <section id='performance_chart_section'></section>
+              <TopMessage {...userInfo} />
+              <section id='performance_chart_section'>
+               { sessionsActivity && <BarChart session={sessionsActivity} />}
+              </section>
               <section id='activity_data_section'>
                 <Activity
                   calorieCount={calorieCount}

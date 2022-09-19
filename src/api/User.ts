@@ -1,5 +1,5 @@
 import { getDatas } from './Api'
-import { IUserInfos, IKeyData, IAverage, IActivity, IValues } from './Interfaces'
+import { IUserInfos, IKeyData, IAverage, IActivitySession, IValues } from './Interfaces'
 
 class User {
   protected readonly id: string
@@ -34,19 +34,21 @@ class User {
     return sessions ? sessions : ({} as IAverage)
   }
   // Get Sessions Activity Datas
-  getSessionsActivity(): IActivity {
+  getSessionsActivity(): IActivitySession[] {
     const sessions = getDatas(this.id + '/activity', 'sessions')
-
-    return sessions ? sessions : ({} as IActivity)
+    console.log(sessions)
+    return sessions
+      ? sessions
+      : ([{ day: '1901-01-01', kilogram: 0, calories: 0 }] as IActivitySession[])
   }
   // Get Performance Datas
-  getPerformances() {
+  getPerformances(): IValues[] {
     const data: [] = getDatas(this.id + '/performance', 'data')
     const kinds = getDatas(this.id + '/performance', 'kind')
     const performances: IValues[] = []
 
     data &&
-      data.forEach((perf: IValues) => {
+      data.map((perf: IValues) => {
         performances.push({ value: perf && perf.value, kind: kinds && kinds[perf.kind] })
       })
 

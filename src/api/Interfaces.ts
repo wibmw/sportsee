@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react'
 // User Infos Interfaces
 export interface IUser {
   id: number
@@ -7,7 +8,7 @@ export interface IUser {
 }
 
 export interface IUserInfos {
-  firstName?: string
+  firstName: string
   lastName?: string
   age?: number
 }
@@ -48,17 +49,44 @@ export interface IValues {
 }
 
 // Activity Interfaces
-export interface IActivity {
-  sessions: [IActivitySessions]
+export interface IActivitySession {
+  [key: string]: string | number
+  day: string
+  kilogram: number
+  calories: number
 }
 
 export interface IActivitySessions {
-  day: number
-  sessionLength: number
+  session: IActivitySession[]
 }
 
-export type userInfosProps = {
-  firstName?: string
-  lastName?: string
-  age?: number
+// D3 ChartsBlock
+export interface Props {
+  data: IGroupedData[]
+}
+
+export interface BarProps {
+  x: number
+  y: number
+  width: number
+  height: number
+  color: string
+  onMouseEnter: (e: MouseEvent<SVGPathElement>) => void
+  onMouseLeave: () => void
+}
+
+export interface Tooltip {
+  x: number
+  y: number
+  index: number
+}
+
+export interface IData {
+  label: string
+  value: number
+}
+
+export interface IGroupedData {
+  label: string
+  values: number[]
 }

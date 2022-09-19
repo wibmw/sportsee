@@ -13,11 +13,11 @@ const ActivityItem: FC<IActivityItem> = ({ icon, value, name, unit }) => {
   }
 
   return (
-    /** *********** Banner Component ******************/
+    /** *********** Activity Component ******************/
     <article className='activity_item'>
-      {/** *********** Banner Image ******************/}
+      {/** *********** Activity Image ******************/}
       <img src={icon} className='activity_item_icon' />
-      {/** *********** Banner Text ******************/}
+      {/** *********** Activity Text ******************/}
       <div className='activity_item_text'>
         <p>{thousandsSeparator(value) + kiloUnit(value, unit)}</p>
         <h3>{name}</h3>
