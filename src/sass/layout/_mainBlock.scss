@@ -1,4 +1,16 @@
 /**************** Description ****************/
+
+#charts_block {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 30px;
+}
+
+#performance_chart_section {
+  width: 70%;
+}
 .description {
   @include wh-100;
   display: flex;
@@ -19,15 +31,5 @@
 
 /**************** Responsive ****************/
 @media screen and (max-width: 768px) {
-  .description {
-    flex-direction: column;
-    gap: 10px;
-    @include margin-tb(10px, 0px);
-    &_left {
-      width: 100%;
-    }
-    &_right {
-      width: 100%;
-    }
-  }
+
 }

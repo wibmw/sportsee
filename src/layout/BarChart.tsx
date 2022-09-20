@@ -11,13 +11,14 @@ const BarChart: FC<IActivitySessions> = ({ session }) => {
   const width = 500 - margin.left - margin.right
   const height = 300 - margin.top - margin.bottom
 
-  console.log(session && session[0])
-  const days = session && session.map(({ day, index }) => day)
-  const sublabels = session != null ? Object?.keys(session && session[0]) : []
-  const calories = session && session.map(({ calories }) => calories).flat()
-  const kilogram = session && session.map(({ kilogram }) => kilogram).flat()
-
-  const scaleX = d3.scaleBand().domain(days).range([0, width]).padding(0.2)
+  console.log(session)
+  const days = session.map(({ day }) => day)
+  const sublabels = Object?.keys(session[0])
+  const calories = session.map(({ calories }) => calories).flat()
+  const kilogram = session.map(({ kilogram }) => kilogram).flat()
+  console.log(calories)
+  console.log(kilogram)
+  const scaleX = d3.scaleBand().domain(days).range([0, width]).padding(0.1)
   const scaleY = d3
     .scaleLinear()
     .domain([0, Math.max(...calories)])
@@ -45,45 +46,37 @@ const BarChart: FC<IActivitySessions> = ({ session }) => {
             <g transform={`translate(${margin.left}, ${margin.top})`}>
               <g ref={axisBottomRef} transform={`translate(0, ${height})`} />
               <g ref={axisRightRef} transform={`translate(0, ${height})`} />
-              {session &&
-                session.map(({ day, kilogram, calories }, groupIndex) => (
-                  <g key={`rect-group-${groupIndex}`} transform={`translate(${scaleX(day)}, 0)`}>
-                    <>
-                      <Bar
-                        key={`rect-${0}`}
-                        x={subscaleX(String(0)) || 0}
-                        y={scaleY(kilogram)}
-                        width={subscaleX.bandwidth()}
-                        height={height - scaleY(kilogram)}
-                        color='teal'
-                        onMouseEnter={(event) => {
-                          setTooltip({
-                            x: event.clientX,
-                            y: event.clientY,
-                            index: groupIndex,
-                          })
-                        }}
-                        onMouseLeave={() => setTooltip(null)}
-                      />
-                      <Bar
-                        key={`rect-${1}`}
-                        x={subscaleX(String(1)) || 0}
-                        y={scaleY(calories)}
-                        width={subscaleX.bandwidth()}
-                        height={height - scaleY(calories)}
-                        color='red'
-                        onMouseEnter={(event) => {
-                          setTooltip({
-                            x: event.clientX,
-                            y: event.clientY,
-                            index: groupIndex,
-                          })
-                        }}
-                        onMouseLeave={() => setTooltip(null)}
-                      />
-                    </>
-                  </g>
-                ))}
+              {session.map(({ day, kilogram, calories }, groupIndex) => (
+                <g key={`rect-group-${groupIndex}`} transform={`translate(${scaleX(day)}, 0)`}>
+                  <>
+                  <Bar
+                      key={`rect-${0}`}
+                      x={subscaleX(String(0)) || 0}
+                      y={scaleY(calories)}
+                      width={subscaleX.bandwidth()}
+                      height={height - scaleY(calories)}
+                      color='red'
+                    />
+                    <Bar
+                      key={`rect-${1}`}
+                      x={subscaleX(String(100)) || 0}
+                      y={scaleY(kilogram)}
+                      width={subscaleX.bandwidth()}
+                      height={height - scaleY(kilogram)}
+                      color='black'
+                      /* onMouseEnter={(event) => {
+                        setTooltip({
+                          x: event.clientX,
+                          y: event.clientY,
+                          index: groupIndex,
+                        })
+                      }}
+                      onMouseLeave={() => setTooltip(null)}*/
+                    />
+
+                  </>
+                </g>
+              ))}
             </g>
           </svg>
           {/* tooltip !== null ? (
@@ -113,7 +106,7 @@ const BarChart: FC<IActivitySessions> = ({ session }) => {
   )
 }
 
-function Bar({ x, y, width, height, color, onMouseEnter, onMouseLeave }: BarProps) {
+function Bar({ x, y, width, height, color }: BarProps) {
   const radius = height === 0 ? 0 : width * 0.15
 
   return (
@@ -128,8 +121,8 @@ function Bar({ x, y, width, height, color, onMouseEnter, onMouseLeave }: BarProp
       z
     `}
       fill={color}
-      onMouseEnter={(event) => onMouseEnter(event)}
-      onMouseLeave={onMouseLeave}
+      // onMouseEnter={(event) => onMouseEnter(event)}
+      // onMouseLeave={onMouseLeave}
     />
   )
 }

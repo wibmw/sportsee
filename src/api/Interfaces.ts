@@ -71,8 +71,8 @@ export interface BarProps {
   width: number
   height: number
   color: string
-  onMouseEnter: (e: MouseEvent<SVGPathElement>) => void
-  onMouseLeave: () => void
+  // onMouseEnter: (e: MouseEvent<SVGPathElement>) => void
+  // onMouseLeave: () => void
 }
 
 export interface Tooltip {
