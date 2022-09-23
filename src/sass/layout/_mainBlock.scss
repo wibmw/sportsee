@@ -1,5 +1,4 @@
-/**************** Description ****************/
-
+/**************** Charts Main Block ****************/
 #charts_block {
   width: 100%;
   display: flex;
@@ -8,28 +7,12 @@
   gap: 30px;
 }
 
+
 #performance_chart_section {
   width: 70%;
 }
-.description {
-  @include wh-100;
-  display: flex;
-  gap: 50px;
-  font-weight: 500;
-  @include margin-tb(30px, 30px);
-  // Left Block
-  &_left {
-    width: 50%;
-    border-radius: 10px;
-  }
-  // Right Block
-  &_right {
-    width: 50%;
-    border-radius: 10px;
-  }
-}
+
 
 /**************** Responsive ****************/
 @media screen and (max-width: 768px) {
-
 }

@@ -3,10 +3,10 @@ import User from '../api/User'
 import SideBar from '../components/Sidebar'
 import TopMessage from '../components/TopMessage'
 import Activity from '../layout/Activity'
-import BarCharts from '../layout/BarCharts'
+import BarChart from '../layout/BarChart'
 
 const Home = () => {
-  const user: User = new User('12')
+  const user: User = new User('18')
 
   const userInfo = user.getUserInfos()
   const { calorieCount, proteinCount, carbohydrateCount, lipidCount } = user.getKeyData()
@@ -25,7 +25,7 @@ const Home = () => {
             <div id='charts_block'>
               <TopMessage {...userInfo} />
               <section id='performance_chart_section'>
-                {<BarCharts session={sessionsActivity} />}
+                {<BarChart session={sessionsActivity} />}
               </section>
               <section id='activity_data_section'>
                 <Activity

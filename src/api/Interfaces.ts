@@ -90,3 +90,17 @@ export interface IGroupedData {
   label: string
   values: number[]
 }
+
+export interface IBarChartAxis {
+  type: string
+  axis: any
+  translate: number
+  select: string
+  className?: string
+  remove?: boolean
+}
+// Create an interface for the size of the window
+export interface Size {
+  width: number
+  height: number
+}

@@ -29,6 +29,7 @@ body {
 /**************** Bannière ****************/
 .top_message_name {
   font-size: 48px;
+  margin-top: 0;
 }
 .top_message_name span {
   color: red;
@@ -156,7 +157,7 @@ nav {
   margin: 0;
 }
 
-/**************** Description ****************/
+/**************** Charts Main Block ****************/
 #charts_block {
   width: 100%;
   display: flex;
@@ -169,25 +170,68 @@ nav {
   width: 70%;
 }
 
-.description {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  gap: 50px;
-  font-weight: 500;
-  margin-top: 30px;
-  margin-bottom: 30px;
+/**************** Responsive ****************/
+.bar_chart_tooltip {
+  opacity: 0;
+  width: 80;
+  height: 210;
+  fill: grey;
+  transition: 0.15s ease-in-out;
+  opacity: 0;
 }
-.description_left {
-  width: 50%;
-  border-radius: 10px;
-}
-.description_right {
-  width: 50%;
-  border-radius: 10px;
+.bar_chart_tooltip:hover {
+  transition: 0.15s ease-in-out;
+  opacity: 0.2;
 }
 
-/**************** Responsive ****************/
+.bar_chart_tooltip-red {
+  fill: #ff0000;
+  rx: 3px;
+}
+
+.bar_chart_tooltip-text {
+  text-anchor: middle;
+  font-size: 7px;
+  fill: white;
+}
+
+.red_circle {
+  fill: #ff0000;
+}
+
+.legends_text {
+  fill: #74798c;
+  color: #74798c;
+  font-size: 14px;
+}
+
+.chart_axis_grid {
+  stroke-dasharray: 3, 3;
+  color: lightgray;
+}
+
+.chart_axis {
+  font-size: 1rem;
+}
+
+.calories_line {
+  stroke: #ff0000;
+  stroke-width: 8;
+}
+
+.weight_line {
+  stroke: black;
+  stroke-width: 8;
+}
+
+.rounded_line {
+  stroke-linecap: round;
+}
+
+.butted_line {
+  stroke-linecap: butt;
+}
+
 /**************** Home Page ****************/
 #main_section {
   display: flex;
