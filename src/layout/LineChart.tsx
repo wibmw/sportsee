@@ -1,12 +1,12 @@
 import * as d3 from 'd3'
-import { FC, useEffect, useState, useRef } from 'react'
-import { IAverage, IAverageSessions, Size } from '../api/Interfaces'
+import { useEffect, useState, useRef } from 'react'
+import { IAverageSessions, Size } from '../api/Interfaces'
 
 const LineChart = (props: { session: IAverageSessions[] }) => {
   // svg parent ref
   const lineContainerRef = useRef<HTMLHeadingElement>(null)
   // ref for resize event
-  const updateLines = useRef(false)
+  const updateWidth = useRef(false)
   // responsive width
   // The size of the window
   const [size, setSize] = useState<Size>()
@@ -17,24 +17,23 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
 
   useEffect(() => {
     // if resize remove the previous chart
-    updateLines.current ? d3.select('.line-chart-svg').remove() : (updateLines.current = true)
+    updateWidth.current ? d3.select('.line-chart-svg').remove() : (updateWidth.current = true)
     // re-draw the chart with new dimensions after resize
-    console.log(props.session)
     DrawChart(props.session)
     // Listening for the window resize event
-    window.addEventListener('resize', resizeHanlder)
+    window.addEventListener('resize', resizeHandler)
     // Cleanup function
     // Remove the event listener when the component is unmounted
     return () => {
-      window.removeEventListener('resize', resizeHanlder)
+      window.removeEventListener('resize', resizeHandler)
     }
   }, [props.session, size])
 
   // This function updates the state thus re-render components
-  const resizeHanlder = () => {
+  const resizeHandler = () => {
     setSize({ width: window.innerWidth, height: window.innerHeight })
   }
-  console.log(props.session)
+
   const DrawChart = (session: IAverageSessions[]) => {
     // dimentions
     const graphWidth =
@@ -76,33 +75,33 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
       .domain([0, d3.max(session, (d) => d.sessionLength)] as number[])
       .range([graphHeight, margin.top + margin.bottom])
 
-    svg
+    /* svg
       .append('g')
       .call(xAxis)
       .attr('color', '#fff')
       .attr('transform', `translate(0, ${graphHeight + margin.top - 10})`)
       .attr('font-size', '1rem')
       .select('.domain')
-      .remove()
+      .remove()*/
 
-    // tooltips
-    session.forEach((data, index) => {
+    // lines
+    session.forEach((d, index) => {
       // path
       const line = d3
-        .line()
-        .x((d) => xScale(tickLabels.indexOf(d[0] as number)))
-        .y((d) => yScale(d[1] as number))
+        .line<IAverageSessions>()
+        .x((data) => xScale(tickLabels.indexOf(data.day)))
+        .y((data) => yScale(data.sessionLength))
         .curve(d3.curveMonotoneX)
 
       const path = svg
         .append('path')
-        .attr('d', line(data))
+        .attr('d', line(session))
         .attr('stroke', '#fff')
         .attr('stroke-width', 2)
         .attr('fill', 'none')
 
       // animation
-      const pathLength = path && path.node().getTotalLength()
+      const pathLength = path?.node()?.getTotalLength() || 0
       path
         .attr('stroke-dashoffset', pathLength)
         .attr('stroke-dasharray', pathLength)
@@ -111,46 +110,38 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
         .attr('stroke-dashoffset', 0)
         .ease(d3.easeSin)
 
+      // Dots Tooltip
+      const groups = (
+        type: string,
+        x: number,
+        y: number,
+        width: string | number,
+        height: string | number,
+        className?: string,
+        text?: string,
+        isLowOpacity?: boolean,
+      ) => {
+        group
+          .append(type)
+          .classed('low-opacity-circle', true)
+          .attr(type === 'circle' ? 'cx' : 'x', x)
+          .attr(type === 'circle' ? 'cy' : 'y', y)
+          .attr('width', width)
+          .attr('height', height)
+          .attr('class', className || '')
+          .text(text || '')
+          .attr('r', type === 'circle' ? width : 0)
+          .attr('opacity', '0')
+      }
+
       const group = svg.append('g').attr('id', 'day' + index + 'average')
-      group
-        .append('rect')
-        .attr('x', xScale(index))
-        .attr('y', 0)
-        .attr('width', '100%')
-        .attr('height', graphHeight + margin.top + margin.bottom)
-        .attr('fill', 'rgba(0, 0, 0, 0.1)')
-        .attr('opacity', '0')
-      group
-        .append('rect')
-        .attr('x', displayTooltip(index))
-        .attr('y', yScale(session[index].sessionLength) - 25)
-        .attr('width', 50)
-        .attr('height', 20)
-        .attr('fill', '#fff')
-        .attr('opacity', '0')
-      group
-        .append('text')
-        .attr('x', displayTooltip(index) + 25)
-        .attr('y', yScale(session[index].sessionLength) - 10)
-        .style('text-anchor', 'middle')
-        .attr('fill', 'black')
-        .text(session[index].sessionLength + 'min')
-        .attr('opacity', '0')
-      group
-        .append('circle')
-        .attr('fill', '#fff')
-        .attr('cx', xScale(index))
-        .attr('cy', yScale(session[index].sessionLength))
-        .attr('r', 4)
-        .attr('opacity', '0')
-      group
-        .append('circle')
-        .classed('low-opacity-circle', true)
-        .attr('fill', '#fff')
-        .attr('cx', xScale(index))
-        .attr('cy', yScale(session[index].sessionLength))
-        .attr('r', 10)
-        .attr('opacity', '0')
+      const length = session[index].sessionLength
+      groups('rect', xScale(index), 0, '100%', graphHeight + margin.top + margin.bottom, 't--transparent')
+      groups('rect', displayTooltip(index), yScale(length) - 25, 50, 20, 't--white')
+      groups('text', displayTooltip(index) + 25, yScale(length) - 10, '', '', 't--text', length + 'min')
+      groups('circle', xScale(index), yScale(length), 4, '', 't--white')
+      groups('circle', xScale(index), yScale(length), 10, '', 't--white', '', true)
+
       // hover area
       svg
         .append('rect')

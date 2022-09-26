@@ -34,7 +34,6 @@ const BarCharts = (session: IActivitySessions) => {
   }
 
   const DrawChart = ({ session }: IActivitySessions) => {
-    console.log(session)
     // dimentions
     const graphWidth =
       parseInt(d3.select(chartContainerRef.current).style('width')) - margin.left - margin.right
@@ -74,9 +73,10 @@ const BarCharts = (session: IActivitySessions) => {
 
     // Y axis
     const maxWeight = d3.max(session, (d) => d.kilogram) as number
+    const minWeight = d3.min(session, (d) => d.kilogram) as number
     const maxCalories = d3.max(session, (d) => d.calories) as number
 
-    const yWeightScale = scales([maxWeight - 2, maxWeight], [svgHeight - margin.top, 100])
+    const yWeightScale = scales([minWeight - 1, maxWeight], [svgHeight - margin.top, 100])
 
     const yCaloriesScale = scales([0, maxCalories * 2], [0, svgHeight])
 

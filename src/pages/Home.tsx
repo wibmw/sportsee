@@ -7,7 +7,7 @@ import BarChart from '../layout/BarChart'
 import LineChart from '../layout/LineChart'
 
 const Home = () => {
-  const user: User = new User('18')
+  const user: User = new User('12')
 
   const userInfo = user.getUserInfos()
   const { calorieCount, proteinCount, carbohydrateCount, lipidCount } = user.getKeyData()

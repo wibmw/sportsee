@@ -232,6 +232,25 @@ nav {
   stroke-linecap: butt;
 }
 
+/**************** Line Chart ****************/
+.tooltips {
+  opacity: 0;
+  fill: white;
+}
+
+.t--transparent {
+  fill: rgba(0, 0, 0, 0.1);
+}
+
+.t--white {
+  fill: white;
+}
+
+.t--text {
+  text-anchor: middle;
+  fill: black;
+}
+
 /**************** Home Page ****************/
 #main_section {
   display: flex;

@@ -1,0 +1,18 @@
+/**************** Line Chart ****************/
+.tooltips {
+  opacity: 0;
+  fill: $back-white;
+}
+
+.t--transparent {
+  fill: rgba(0, 0, 0, 0.1);
+}
+
+.t--white {
+  fill: $back-white;
+}
+
+.t--text {
+    text-anchor: middle;
+    fill: black;
+}
