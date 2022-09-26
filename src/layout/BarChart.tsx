@@ -2,7 +2,7 @@ import * as d3 from 'd3'
 import { FC, useEffect, useState, useRef } from 'react'
 import { IActivitySessions, Size } from '../api/Interfaces'
 
-const BarCharts: FC<IActivitySessions> = (session) => {
+const BarCharts = (session: IActivitySessions) => {
   // svg parent ref
   const chartContainerRef = useRef<HTMLHeadingElement>(null)
   // ref for resize event
@@ -34,6 +34,7 @@ const BarCharts: FC<IActivitySessions> = (session) => {
   }
 
   const DrawChart = ({ session }: IActivitySessions) => {
+    console.log(session)
     // dimentions
     const graphWidth =
       parseInt(d3.select(chartContainerRef.current).style('width')) - margin.left - margin.right
@@ -96,11 +97,12 @@ const BarCharts: FC<IActivitySessions> = (session) => {
 
     // X axis
     const extent = d3.extent(session.map((d) => new Date(d.day).getDate())) as number[]
-    const xScale2 = d3.scaleBand()
+    const xScale2 = d3
+      .scaleBand()
       .domain(session.map((d) => new Date(d.day).getDate()) as any)
       .padding(-0.5)
     const xScale = scales(extent, [margin.left, graphWidth - margin.right])
-    console.log(xScale)
+
     const xAxis = d3.axisBottom(xScale).tickSize(0).tickPadding(margin.bottom).ticks(7)
 
     axis(xAxis, svgHeight - margin.top, 'path', 'legends_text')

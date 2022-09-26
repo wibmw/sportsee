@@ -28,13 +28,13 @@ export interface IActivityItem {
 }
 
 // Average Interfaces
-export interface IAverage {
-  sessions: IAverageSessions[]
-}
-
 export interface IAverageSessions {
+  [key: string]: string | number
   day: number
   sessionLength: number
+}
+export interface IAverage {
+  session: IAverageSessions[]
 }
 
 // Perforrmance Interfaces

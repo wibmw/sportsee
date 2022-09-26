@@ -1,5 +1,5 @@
 import { getDatas } from './Api'
-import { IUserInfos, IKeyData, IAverage, IActivitySession, IValues } from './Interfaces'
+import { IUserInfos, IKeyData, IAverage, IActivitySession, IValues, IAverageSessions } from './Interfaces'
 
 class User {
   protected readonly id: string
@@ -28,18 +28,17 @@ class User {
       : ({ calorieCount: 0, proteinCount: 0, carbohydrateCount: 0, lipidCount: 0 } as IKeyData)
   }
   // Get Sessions Average Datas
-  getSessionsAverage(): IAverage {
+  getSessionsAverage(): IAverageSessions[] {
     const sessions = getDatas(this.id + '/average-sessions', 'sessions')
+    console.log(sessions)
 
-    return sessions ? sessions : ({} as IAverage)
+    return sessions ? sessions : ([{ day: 0, sessionLength: 0 }] as IAverageSessions[])
   }
   // Get Sessions Activity Datas
   getSessionsActivity(): IActivitySession[] {
     const sessions = getDatas(this.id + '/activity', 'sessions')
     console.log(sessions)
-    return sessions
-      ? sessions
-      : ([{ day: '1901-01-01', kilogram: 0, calories: 0 }] as IActivitySession[])
+    return sessions ? sessions : ([{ day: '1901-01-01', kilogram: 0, calories: 0 }] as IActivitySession[])
   }
   // Get Performance Datas
   getPerformances(): IValues[] {

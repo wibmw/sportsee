@@ -4,6 +4,7 @@ import SideBar from '../components/Sidebar'
 import TopMessage from '../components/TopMessage'
 import Activity from '../layout/Activity'
 import BarChart from '../layout/BarChart'
+import LineChart from '../layout/LineChart'
 
 const Home = () => {
   const user: User = new User('18')
@@ -11,8 +12,8 @@ const Home = () => {
   const userInfo = user.getUserInfos()
   const { calorieCount, proteinCount, carbohydrateCount, lipidCount } = user.getKeyData()
   const sessionsActivity = user.getSessionsActivity()
+  const sessionsAverage = user.getSessionsAverage()
 
-  console.log(sessionsActivity)
   // const todayScore = user && user.getTodayScore()
 
   return (
@@ -25,7 +26,8 @@ const Home = () => {
             <div id='charts_block'>
               <TopMessage {...userInfo} />
               <section id='performance_chart_section'>
-                {<BarChart session={sessionsActivity} />}
+                <BarChart session={sessionsActivity} />
+                <LineChart session={sessionsAverage} />
               </section>
               <section id='activity_data_section'>
                 <Activity
