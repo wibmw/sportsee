@@ -7,12 +7,9 @@
   gap: 30px;
 }
 
-
 #performance_chart_section {
   width: 70%;
-}
-
-
-/**************** Responsive ****************/
-@media screen and (max-width: 768px) {
+  display: flex;
+  gap: 30px;
+  flex-flow: nowrap column;
 }

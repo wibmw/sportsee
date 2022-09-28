@@ -13,6 +13,10 @@
 }
 
 .t--text {
-    text-anchor: middle;
-    fill: black;
+  text-anchor: middle;
+  fill: black;
+}
+
+.t--lowOpacity {
+  fill: rgba(255, 255, 255, 0.504);
 }

@@ -45,7 +45,7 @@ export interface IPerformance {
 export interface IValues {
   [key: string]: string | number
   value: number
-  kind: number
+  kind: string | number
 }
 
 // Activity Interfaces

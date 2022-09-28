@@ -51,9 +51,7 @@ class User {
         performances.push({ value: perf && perf.value, kind: kinds && kinds[perf.kind] })
       })
 
-    console.log(performances)
-
-    return performances ? performances : []
+    return performances ? performances : ([{ value: 0, kind: '' }] as IValues[])
   }
 }
 

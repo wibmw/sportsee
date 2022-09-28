@@ -60,36 +60,32 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
     // X axis
     const xScale = d3
       .scaleLinear()
-      .domain([0, 6])
+      .domain([1, 7])
       .range([margin.left, graphWidth + margin.right])
 
     const tickLabels = session.map((d) => d.day)
-    const xAxis = d3
-      .axisBottom(xScale)
-      .tickSize(0)
-      .tickPadding(10)
-      .ticks(7)
-      .tickFormat((d, i) => tickLabels[i].toString().substring(0, 1))
+    const xAxis = d3.axisBottom(xScale).tickSize(0).ticks(7)
+
     const yScale = d3
       .scaleLinear()
       .domain([0, d3.max(session, (d) => d.sessionLength)] as number[])
       .range([graphHeight, margin.top + margin.bottom])
 
-    /* svg
+    svg
       .append('g')
       .call(xAxis)
       .attr('color', '#fff')
       .attr('transform', `translate(0, ${graphHeight + margin.top - 10})`)
       .attr('font-size', '1rem')
       .select('.domain')
-      .remove()*/
+      .remove()
 
     // lines
     session.forEach((d, index) => {
       // path
       const line = d3
         .line<IAverageSessions>()
-        .x((data) => xScale(tickLabels.indexOf(data.day)))
+        .x((data) => xScale(tickLabels.indexOf(data.day) + 1))
         .y((data) => yScale(data.sessionLength))
         .curve(d3.curveMonotoneX)
 
@@ -119,11 +115,9 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
         height: string | number,
         className?: string,
         text?: string,
-        isLowOpacity?: boolean,
       ) => {
         group
           .append(type)
-          .classed('low-opacity-circle', true)
           .attr(type === 'circle' ? 'cx' : 'x', x)
           .attr(type === 'circle' ? 'cy' : 'y', y)
           .attr('width', width)
@@ -136,16 +130,17 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
 
       const group = svg.append('g').attr('id', 'day' + index + 'average')
       const length = session[index].sessionLength
-      groups('rect', xScale(index), 0, '100%', graphHeight + margin.top + margin.bottom, 't--transparent')
-      groups('rect', displayTooltip(index), yScale(length) - 25, 50, 20, 't--white')
-      groups('text', displayTooltip(index) + 25, yScale(length) - 10, '', '', 't--text', length + 'min')
-      groups('circle', xScale(index), yScale(length), 4, '', 't--white')
-      groups('circle', xScale(index), yScale(length), 10, '', 't--white', '', true)
+      const index1 = index + 1
+      groups('rect', xScale(index1), 0, '100%', graphHeight + margin.top + margin.bottom, 't--transparent')
+      groups('rect', displayTooltip(index1), yScale(length) - 25, 50, 20, 't--white')
+      groups('text', displayTooltip(index1) + 25, yScale(length) - 10, '', '', 't--text', length + 'min')
+      groups('circle', xScale(index1), yScale(length), 4, '', 't--white')
+      groups('circle', xScale(index1), yScale(length), 10, '', 't--lowOpacity', '')
 
       // hover area
       svg
         .append('rect')
-        .attr('x', xScale(index))
+        .attr('x', xScale(index1))
         .attr('y', 0)
         .attr('width', graphWidth / 7)
         .attr('height', 300)

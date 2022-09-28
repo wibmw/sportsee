@@ -168,9 +168,11 @@ nav {
 
 #performance_chart_section {
   width: 70%;
+  display: flex;
+  gap: 30px;
+  flex-flow: nowrap column;
 }
 
-/**************** Responsive ****************/
 .bar_chart_tooltip {
   opacity: 0;
   width: 80;
@@ -248,6 +250,24 @@ nav {
 
 .t--text {
   text-anchor: middle;
+  fill: black;
+}
+
+.t--lowOpacity {
+  fill: rgba(255, 255, 255, 0.504);
+}
+
+.radial {
+  fill: #74798c;
+  text-anchor: middle;
+  font-size: 1.8rem;
+}
+
+.radial_title {
+  font-size: 1.5rem;
+}
+
+.r--black {
   fill: black;
 }
 
