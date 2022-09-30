@@ -30,14 +30,13 @@ class User {
   // Get Sessions Average Datas
   getSessionsAverage(): IAverageSessions[] {
     const sessions = getDatas(this.id + '/average-sessions', 'sessions')
-    console.log(sessions)
 
     return sessions ? sessions : ([{ day: 0, sessionLength: 0 }] as IAverageSessions[])
   }
   // Get Sessions Activity Datas
   getSessionsActivity(): IActivitySession[] {
     const sessions = getDatas(this.id + '/activity', 'sessions')
-    console.log(sessions)
+
     return sessions ? sessions : ([{ day: '1901-01-01', kilogram: 0, calories: 0 }] as IActivitySession[])
   }
   // Get Performance Datas

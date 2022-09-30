@@ -220,7 +220,7 @@ const BarCharts = (session: IActivitySessions) => {
     })
   }
 
-  return <div className='barchart-container' ref={chartContainerRef} style={{ height: svgHeight }}></div>
+  return <div className='bar_chart' ref={chartContainerRef} style={{ height: svgHeight }}></div>
 }
 
 export default BarCharts

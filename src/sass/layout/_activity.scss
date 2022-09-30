@@ -1,12 +1,10 @@
-#activity_data_section {
-  width: 20%;
-}
-
 .activity {
+  grid-area: 2 / 5 / 6 / 6;
   display: flex;
-  gap: 39px;
   flex-direction: column;
+  gap: 40px;
   flex-wrap: nowrap;
+  margin-left: 30px;
   &_item {
     display: flex;
     @include wh(258px, 124px);

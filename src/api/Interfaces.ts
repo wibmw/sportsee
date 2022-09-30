@@ -47,6 +47,11 @@ export interface IValues {
   value: number
   kind: string | number
 }
+export interface IValue {
+  [key: string]: string | number
+  value: number
+  kind: number
+}
 
 // Activity Interfaces
 export interface IActivitySession {

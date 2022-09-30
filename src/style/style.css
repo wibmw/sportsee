@@ -27,6 +27,9 @@ body {
 }
 
 /**************** Bannière ****************/
+.top_message {
+  grid-area: 1/1/2/6;
+}
 .top_message_name {
   font-size: 48px;
   margin-top: 0;
@@ -115,15 +118,13 @@ nav {
 }
 
 /**************** Responsive ****************/
-#activity_data_section {
-  width: 20%;
-}
-
 .activity {
+  grid-area: 2/5/6/6;
   display: flex;
-  gap: 39px;
   flex-direction: column;
+  gap: 40px;
   flex-wrap: nowrap;
+  margin-left: 30px;
 }
 .activity_item {
   display: flex;
@@ -159,18 +160,23 @@ nav {
 
 /**************** Charts Main Block ****************/
 #charts_block {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-rows: fit-content(100%) fit-content(100%) 1fr;
+  grid-template-columns: fit-content(100%) fit-content(100%) 1fr;
+  grid-row-gap: 30px;
 }
 
 #performance_chart_section {
-  width: 70%;
-  display: flex;
-  gap: 30px;
-  flex-flow: nowrap column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 30px;
+}
+
+.bar_chart {
+  grid-area: 2/1/4/5;
 }
 
 .bar_chart_tooltip {
@@ -235,6 +241,10 @@ nav {
 }
 
 /**************** Line Chart ****************/
+.line_chart {
+  grid-area: 1/1/2/2;
+}
+
 .tooltips {
   opacity: 0;
   fill: white;
@@ -257,6 +267,15 @@ nav {
   fill: rgba(255, 255, 255, 0.504);
 }
 
+.xAxis {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.radial_chart {
+  grid-area: 1/3/2/4;
+}
+
 .radial {
   fill: #74798c;
   text-anchor: middle;
@@ -269,6 +288,10 @@ nav {
 
 .r--black {
   fill: black;
+}
+
+.spider_chart {
+  grid-area: 1/2/2/3;
 }
 
 /**************** Home Page ****************/

@@ -1,4 +1,7 @@
 /**************** Line Chart ****************/
+.line_chart{
+  grid-area: 1 / 1 / 2 / 2;
+}
 .tooltips {
   opacity: 0;
   fill: $back-white;
@@ -19,4 +22,9 @@
 
 .t--lowOpacity {
   fill: rgba(255, 255, 255, 0.504);
+}
+
+.xAxis {
+  margin-left: 20px;
+  margin-right: 20px;
 }

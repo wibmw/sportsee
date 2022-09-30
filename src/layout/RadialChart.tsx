@@ -1,36 +1,40 @@
 import * as d3 from 'd3'
 import { useEffect, useRef, useState } from 'react'
 import { Size } from '../api/Interfaces'
+import { vh, vw } from '../utils/responsive'
 
 const RadialChart = (props: { todayScore: number }) => {
   // svg parent ref
   const radialContainerRef = useRef<HTMLHeadingElement>(null)
   // ref for resize event
   const updateWidth = useRef(false)
-  // responsive width
   // The size of the window
   const [size, setSize] = useState<Size>()
 
+  // responsive width
+  const svgHeight = vh(35),
+    svgWidth = vw(20),
+    margin = { top: 40, left: 30, right: 30, bottom: 20 }
+
   useEffect(() => {
     // if resize remove the previous chart
-    updateWidth.current ? d3.select('.radial-chart-svg').remove() : (updateWidth.current = true)
+    updateWidth.current
+      ? document?.querySelector('.radial-chart-svg')?.remove()
+      : (updateWidth.current = true)
+    // re-draw the chart with new dimensions after resize
     DrawChart(props.todayScore)
     // Listening for the window resize event
-    window.addEventListener('resize', resizeHandler)
-    // Cleanup function
+    window.addEventListener('resize', resizeHanlder)
     // Remove the event listener when the component is unmounted
     return () => {
-      window.removeEventListener('resize', resizeHandler)
+      window.removeEventListener('resize', resizeHanlder)
     }
   }, [props.todayScore, size])
 
   // This function updates the state thus re-render components
-  const resizeHandler = () => {
+  const resizeHanlder = () => {
     setSize({ width: window.innerWidth, height: window.innerHeight })
   }
-
-  const svgHeight = 320
-  const margin = { top: 40, left: 30, right: 30, bottom: 20 }
 
   const DrawChart = (todayScore: number) => {
     // dimentions
@@ -41,12 +45,12 @@ const RadialChart = (props: { todayScore: number }) => {
       .select(radialContainerRef.current)
       .append('svg')
       .classed('radial-chart-svg', true)
-      .attr('width', '100%')
+      .attr('width', svgWidth)
       .attr('height', svgHeight)
       .style('background-color', '#F5F7F9')
       .style('border-radius', '5px')
     // Dots Tooltip
-    const draw = (type: string, x: number | string, y: number| string, className: string, text: string) => {
+    const draw = (type: string, x: number | string, y: number | string, className: string, text: string) => {
       svg
         .append(type)
         .attr('x', x)
@@ -60,19 +64,19 @@ const RadialChart = (props: { todayScore: number }) => {
     // Draw the Circle
     svg
       .append('circle')
-      .attr('transform', `translate(${graphWidth / 2 + margin.right}, ${svgHeight / 2 + margin.bottom})`)
+      .attr('transform', `translate(${svgWidth / 2}, ${svgHeight / 2 + margin.bottom})`)
       .attr('r', 90)
       .attr('fill', '#fff')
     // center text
     svg
-    draw('text', '50%','50%', 'radial r--black', `${todayScore * 100}%`)
-    draw('text', '50%','62%', 'radial ', 'de votre')
-    draw('text', '50%','73%', 'radial', 'objectif')
+    draw('text', '50%', '50%', 'radial r--black', `${todayScore * 100}%`)
+    draw('text', '50%', '62%', 'radial ', 'de votre')
+    draw('text', '50%', '73%', 'radial', 'objectif')
 
     //
     const graph = svg
       .append('g')
-      .attr('transform', `translate(${graphWidth / 2 + margin.right}, ${svgHeight / 2 + margin.bottom})`)
+      .attr('transform', `translate(${svgWidth / 2}, ${svgHeight / 2 + margin.bottom})`)
 
     const arcPath = d3.arc().outerRadius(100).innerRadius(90).startAngle(0).cornerRadius(8)
 
@@ -96,7 +100,7 @@ const RadialChart = (props: { todayScore: number }) => {
     }
   }
 
-  return <div className='radial-chart-container' ref={radialContainerRef}></div>
+  return <div className='radial_chart' ref={radialContainerRef}></div>
 }
 
 export default RadialChart

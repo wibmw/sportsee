@@ -6,7 +6,7 @@ import Activity from '../layout/Activity'
 import BarChart from '../layout/BarChart'
 import LineChart from '../layout/LineChart'
 import RadialChart from '../layout/RadialChart'
-import SpiderChart from '../layout/SpiderChart'
+import SpiderChart2 from '../layout/SpiderChart2'
 
 const Home = () => {
   const user: User = new User('12')
@@ -31,23 +31,21 @@ const Home = () => {
             <div id='charts_block'>
               {/** *********** Welcome Message ******************/}
               <TopMessage {...userInfo} />
+              {/** *********** Bar Chart ******************/}
+              <BarChart session={sessionsActivity} />
               <section id='performance_chart_section'>
-                {/** *********** Bar Chart ******************/}
-                <BarChart session={sessionsActivity} />
                 {/** *********** 3 others Charts ******************/}
                 <LineChart session={sessionsAverage} />
-                <SpiderChart performances={performances} />
+                <SpiderChart2 performances={performances} />
                 <RadialChart todayScore={todayScore} />
               </section>
               {/** *********** Side Activities Infos ******************/}
-              <section id='activity_data_section'>
-                <Activity
-                  calorieCount={calorieCount}
-                  proteinCount={proteinCount}
-                  carbohydrateCount={carbohydrateCount}
-                  lipidCount={lipidCount}
-                />
-              </section>
+              <Activity
+                calorieCount={calorieCount}
+                proteinCount={proteinCount}
+                carbohydrateCount={carbohydrateCount}
+                lipidCount={lipidCount}
+              />
             </div>
           </section>
         </>
