@@ -14,8 +14,8 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
 
 
   // responsive width
-  const svgHeight = vh(35),
-    svgWidth = vw(20),
+  const svgHeight = vw(16),
+    svgWidth = vw(16),
     margin = { top: 35, left: 20, right: 20, bottom: 35 }
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
       .attr('x', margin.right)
       .attr('y', margin.top)
       .text('Durée moyenne des sessions')
-      .style('font-size', '1rem')
+      .attr('class', 'legends')
     // X axis
     const xScale = d3
       .scaleLinear()
@@ -86,7 +86,7 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
       .call(xAxis)
       .attr('color', '#fff')
       .attr('transform', `translate(0, ${graphHeight + margin.top - 10})`)
-      .attr('font-size', '1rem')
+      .attr('class', 'legends')
       .attr('margin-left', '20px')
       .select('.domain')
       .remove()

@@ -1,7 +1,7 @@
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar } from 'recharts'
 import React, { useEffect, useState, useRef } from 'react'
 import { IValues, Size } from '../api/Interfaces'
-import {vh, vw} from '../utils/responsive'
+import { vh, vw } from '../utils/responsive'
 
 const SpiderChart = (props: { performances: IValues[] }) => {
   // svg parent ref
@@ -13,9 +13,16 @@ const SpiderChart = (props: { performances: IValues[] }) => {
     [size, setSize] = useState<Size>({ width: 0, height: 0 }),
     [component, setComponent] = useState<JSX.Element>(),
     // responsive width
-    svgHeight = vh(35),
-    svgWidth = vw(20),
+    svgHeight = vw(16),
+    svgWidth = vw(16),
     margin = { top: 35, left: 20, right: 20, bottom: 35 }
+
+  const oRadius = () => {
+    let radius = 50
+    if (svgWidth > 280) radius = 80
+    else if (svgWidth > 200 && svgWidth <= 280) radius = 65
+    return radius
+  }
 
   useEffect(() => {
     // if resize remove the previous chart
@@ -58,15 +65,14 @@ const SpiderChart = (props: { performances: IValues[] }) => {
           <RadarChart
             data={performances}
             cx='47%'
-            outerRadius={80}
+            outerRadius={oRadius()}
             style={{ backgroundColor: '#282A30', borderRadius: 5 }}
           >
             <PolarGrid radialLines={false} />
             <PolarAngleAxis
               tickFormatter={formatLabels}
               tick={{ fill: 'white' }}
-              tickSize={6}
-              style={{ transform: 'translate(2px, -7px) scaleY(1.1)', fontSize: '12px' }}
+              tickSize={4}
             />
             <Radar dataKey='value' fill='#ff0000' fillOpacity={0.7} />
           </RadarChart>

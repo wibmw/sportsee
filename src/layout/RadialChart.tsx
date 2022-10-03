@@ -12,9 +12,23 @@ const RadialChart = (props: { todayScore: number }) => {
   const [size, setSize] = useState<Size>()
 
   // responsive width
-  const svgHeight = vh(35),
-    svgWidth = vw(20),
+  const svgHeight = vw(16),
+    svgWidth = vw(16),
     margin = { top: 40, left: 30, right: 30, bottom: 20 }
+
+  let radius = 50,
+    oRadius = 55,
+    iRadius = 48
+
+  if (svgWidth > 248) {
+    radius = 90
+    oRadius = 100
+    iRadius = 90
+  } else if (svgWidth > 200 && svgWidth <= 248) {
+    radius = 70
+    oRadius = 75
+    iRadius = 65
+  }
 
   useEffect(() => {
     // if resize remove the previous chart
@@ -65,7 +79,7 @@ const RadialChart = (props: { todayScore: number }) => {
     svg
       .append('circle')
       .attr('transform', `translate(${svgWidth / 2}, ${svgHeight / 2 + margin.bottom})`)
-      .attr('r', 90)
+      .attr('r', radius)
       .attr('fill', '#fff')
     // center text
     svg
@@ -78,7 +92,7 @@ const RadialChart = (props: { todayScore: number }) => {
       .append('g')
       .attr('transform', `translate(${svgWidth / 2}, ${svgHeight / 2 + margin.bottom})`)
 
-    const arcPath = d3.arc().outerRadius(100).innerRadius(90).startAngle(0).cornerRadius(8)
+    const arcPath = d3.arc().outerRadius(oRadius).innerRadius(iRadius).startAngle(0).cornerRadius(8)
 
     graph
       .append('path')

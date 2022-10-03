@@ -28,3 +28,20 @@
   margin-left: 20px;
   margin-right: 20px;
 }
+.legends {
+  font-size: 1rem;
+}
+
+/**************** Responsive ****************/
+@media screen and (max-width: 1550px) {
+  .legends {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 1250px) {
+  .legends {
+    font-size: 0.6rem;
+    font-weight: bold;
+  }
+}

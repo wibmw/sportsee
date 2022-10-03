@@ -10,7 +10,7 @@ export const vh = (percent) => {
 export const vw = (percent) => {
   const screen = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
     w = (percent * screen) / 100
-  return w > 260 ? w : 260
+  return w > 155 ? w : 154
 }
 
 // This function updates the state thus re-render components

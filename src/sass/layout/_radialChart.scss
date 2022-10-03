@@ -13,3 +13,23 @@
 .r--black{
     fill:black;
 }
+
+/**************** Responsive ****************/
+@media screen and (max-width: 1550px) {
+    .radial{
+      font-size: 1.3rem;
+    }
+    .radial_title {
+        font-size:1.2rem;
+    }
+  }
+  
+  @media screen and (max-width: 1250px) {
+    .radial {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .radial_title {
+        font-size:1rem;
+    }
+  }

@@ -46,6 +46,7 @@ const Home = () => {
                 carbohydrateCount={carbohydrateCount}
                 lipidCount={lipidCount}
               />
+              <div id='blank_footer' />
             </div>
           </section>
         </>
