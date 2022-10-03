@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import App from './App'
 import Header from './layout/Header'
 import Home from './pages/Home'
 
@@ -13,7 +12,6 @@ root.render(
       <Header />
       <Routes>
         <Route path={'/'} element={<Home />} />
-        <Route path={'/'} element={<App />} />
       </Routes>
     </Router>
   </React.StrictMode>,

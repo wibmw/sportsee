@@ -16,11 +16,6 @@ body {
   box-sizing: border-box;
 }
 
-#root {
-  display: flex;
-  flex-direction: column;
-}
-
 body {
   font-family: "Roboto", "DM Sans", sans-serif;
   font-size: 100%;
@@ -176,16 +171,15 @@ nav {
 
 #blank_footer {
   grid-area: 4/4/4/4;
-  height: 2vh;
+  height: 78px;
 }
 
 /**************** Responsive ****************/
-@media screen and (max-width: 930px) {
+@media screen and (max-height: 898px) {
   #blank_footer {
-    height: 2.3vh;
+    height: 10px;
   }
 }
-/**************** Responsive ****************/
 @media screen and (max-width: 1550px) {
   .recharts-polar-angle-axis-tick-value {
     font-size: 0.8rem;
