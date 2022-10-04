@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import { useEffect, useRef, useState } from 'react'
 import { Size } from '../api/Interfaces'
-import { vh, vw } from '../utils/responsive'
+import {  vw } from '../utils/responsive'
 
 const RadialChart = (props: { todayScore: number }) => {
   // svg parent ref

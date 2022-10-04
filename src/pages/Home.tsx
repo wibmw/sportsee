@@ -10,15 +10,15 @@ import SpiderChart2 from '../layout/SpiderChart2'
 
 const Home = () => {
   const user: User = new User('12')
+  const user1 = user.build()
 
-  const userInfo = user.getUserInfos()
-  const { calorieCount, proteinCount, carbohydrateCount, lipidCount } = user.getKeyData()
-  const sessionsActivity = user.getSessionsActivity()
-  const sessionsAverage = user.getSessionsAverage()
-  const todayScore = user.getTodayScore()
-  const performances = user.getPerformances()
-
-  // const todayScore = user && user.getTodayScore()
+  const userInfo = user1.userInfos
+  const todayScore = user1.todayScore
+  // Todo
+  const { calorieCount, proteinCount, carbohydrateCount, lipidCount } = user.getKeyData() // user1.keyData
+  const sessionsActivity = user.getSessionsActivity() // user1.sessionsActivity
+  const sessionsAverage = user.getSessionsAverage() // user1.sessionsAverage()
+  const performances = user.getPerformances() // user1.performances()
 
   return (
     <React.Fragment>

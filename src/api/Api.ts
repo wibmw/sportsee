@@ -24,10 +24,11 @@ export const getDatas = (url: string, dataParam: string) => {
         })
       } catch (error) {
         setIsError(true)
+        alert('Error message: \n' + error)
       }
     }
     fetchData()
   }, [])
 
-  if (data) return data && data
+  return data && data
 }
