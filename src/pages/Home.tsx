@@ -9,7 +9,7 @@ import RadialChart from '../layout/RadialChart'
 import SpiderChart2 from '../layout/SpiderChart2'
 
 const Home = () => {
-  const user: User = new User('12')
+  const user: User = new User('18')
   const user1 = user.build()
 
   const userInfo = user1.userInfos
