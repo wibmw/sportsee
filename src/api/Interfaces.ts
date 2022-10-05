@@ -1,15 +1,11 @@
-import { MouseEvent } from 'react'
 // User Infos Interfaces
 export interface IUser {
   userInfos: IUserInfos
   todayScore: number
-  // Todo
-  /* 
   sessionsActivity: IActivitySession[]
   sessionsAverage: IAverageSessions[]
-  performances: IValues[] 
+  performances: IValues[]
   keyData: IKeyData
-  */
 }
 
 export interface IUserInfos {

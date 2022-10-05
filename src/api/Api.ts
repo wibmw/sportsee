@@ -34,7 +34,7 @@ export const getDatas = (url: string, dataParam: string) => {
     }
     fetchData()
   }, [])
-  
+
   // Fetch local datas
   const getMockedDatas = () => {
     let data

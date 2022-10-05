@@ -1,5 +1,4 @@
 import React from 'react'
-import User from '../api/User'
 import SideBar from '../components/Sidebar'
 import TopMessage from '../components/TopMessage'
 import Activity from '../layout/Activity'
@@ -7,18 +6,17 @@ import BarChart from '../layout/BarChart'
 import LineChart from '../layout/LineChart'
 import RadialChart from '../layout/RadialChart'
 import SpiderChart2 from '../layout/SpiderChart2'
+import Service from '../api/Service'
 
 const Home = () => {
-  const user: User = new User('18')
-  const user1 = user.build()
-
-  const userInfo = user1.userInfos
-  const todayScore = user1.todayScore
-  // Todo
-  const { calorieCount, proteinCount, carbohydrateCount, lipidCount } = user.getKeyData() // user1.keyData
-  const sessionsActivity = user.getSessionsActivity() // user1.sessionsActivity
-  const sessionsAverage = user.getSessionsAverage() // user1.sessionsAverage()
-  const performances = user.getPerformances() // user1.performances()
+  const service = new Service('18'),
+    user = service.getAllDatas(),
+    userInfo = user.userInfos,
+    sessionsActivity = user.sessionsActivity,
+    sessionsAverage = user.sessionsAverage,
+    todayScore = user.todayScore,
+    performances = user.performances,
+    { calorieCount, proteinCount, carbohydrateCount, lipidCount } = user.keyData
 
   return (
     <React.Fragment>
