@@ -1,5 +1,5 @@
 // import { IUser } from './Interfaces'
-import {getDatas} from './Api'
+import { getDatas } from './Api'
 import User from './User'
 import { IUserInfos, IKeyData, IAverage, IActivitySessions, IValues } from './Interfaces'
 
@@ -17,7 +17,7 @@ class Service {
   }
   // Get Today Score Datas
   getTodayScore(): number {
-    const todayScore = getDatas(this._id, 'todayScore')
+    const todayScore = getDatas(this._id, this._id === '12' ? 'todayScore' : 'score')
     return todayScore // ? todayScore : 0
   }
   // Get Key Datas

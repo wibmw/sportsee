@@ -9,7 +9,7 @@ import SpiderChart2 from '../layout/SpiderChart2'
 import Service from '../api/Service'
 
 const Home = () => {
-  const service = new Service('18'),
+  const service = new Service('12'),
     user = service.getAllDatas(),
     userInfo = user.userInfos,
     sessionsActivity = user.sessionsActivity,
