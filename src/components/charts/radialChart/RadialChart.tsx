@@ -1,7 +1,8 @@
 import * as d3 from 'd3'
+import { createSVG, svgDraw } from '../../../utils/d3Tools'
 import { useEffect, useRef, useState } from 'react'
-import { Size } from '../api/Interfaces'
-import {  vw } from '../utils/responsive'
+import { Size } from '../../../api/Interfaces'
+import { vw, svgRadius } from '../../../utils/responsive'
 
 const RadialChart = (props: { todayScore: number }) => {
   // svg parent ref
@@ -16,25 +17,11 @@ const RadialChart = (props: { todayScore: number }) => {
     svgWidth = vw(16),
     margin = { top: 40, left: 30, right: 30, bottom: 20 }
 
-  let radius = 50,
-    oRadius = 55,
-    iRadius = 48
-
-  if (svgWidth > 248) {
-    radius = 90
-    oRadius = 100
-    iRadius = 90
-  } else if (svgWidth > 200 && svgWidth <= 248) {
-    radius = 70
-    oRadius = 75
-    iRadius = 65
-  }
+  const { radius, oRadius, iRadius } = svgRadius(svgWidth)
 
   useEffect(() => {
     // if resize remove the previous chart
-    updateWidth.current
-      ? document?.querySelector('.radial-chart-svg')?.remove()
-      : (updateWidth.current = true)
+    updateWidth.current ? document?.querySelector('.radial-chart-svg')?.remove() : (updateWidth.current = true)
     // re-draw the chart with new dimensions after resize
     DrawChart(props.todayScore)
     // Listening for the window resize event
@@ -51,29 +38,11 @@ const RadialChart = (props: { todayScore: number }) => {
   }
 
   const DrawChart = (todayScore: number) => {
-    // dimentions
-    const graphWidth =
-      parseInt(d3.select(radialContainerRef.current).style('width')) - margin.left - margin.right
     // create new chart
-    const svg = d3
-      .select(radialContainerRef.current)
-      .append('svg')
-      .classed('radial-chart-svg', true)
-      .attr('width', svgWidth)
-      .attr('height', svgHeight)
-      .style('background-color', '#F5F7F9')
-      .style('border-radius', '5px')
-    // Dots Tooltip
-    const draw = (type: string, x: number | string, y: number | string, className: string, text: string) => {
-      svg
-        .append(type)
-        .attr('x', x)
-        .attr('y', y)
-        .text(text || '')
-        .attr('class', className || '')
-    }
+    const svg = createSVG(radialContainerRef.current, 'radial-chart-svg', svgWidth, svgHeight)
+
     // add a title
-    draw('text', margin.left, margin.top, 'radial_title', 'Score')
+    svgDraw(svg, 'text', margin.left, margin.top, 'radial_title', 'Score')
 
     // Draw the Circle
     svg
@@ -82,19 +51,17 @@ const RadialChart = (props: { todayScore: number }) => {
       .attr('r', radius)
       .attr('fill', '#fff')
     // center text
-    svg
-    draw('text', '50%', '50%', 'radial r--black', `${todayScore * 100}%`)
-    draw('text', '50%', '62%', 'radial ', 'de votre')
-    draw('text', '50%', '73%', 'radial', 'objectif')
+    svgDraw(svg, 'text', '50%', '50%', 'radial r--black', `${todayScore * 100}%`)
+    svgDraw(svg, 'text', '50%', '62%', 'radial ', 'de votre')
+    svgDraw(svg, 'text', '50%', '73%', 'radial', 'objectif')
 
     //
-    const graph = svg
-      .append('g')
-      .attr('transform', `translate(${svgWidth / 2}, ${svgHeight / 2 + margin.bottom})`)
 
     const arcPath = d3.arc().outerRadius(oRadius).innerRadius(iRadius).startAngle(0).cornerRadius(8)
 
-    graph
+    svg
+      .append('g')
+      .attr('transform', `translate(${svgWidth / 2}, ${svgHeight / 2 + margin.bottom})`)
       .append('path')
       .datum({ endAngle: -0.1 })
       .attr('d', arcPath as any)
@@ -104,7 +71,7 @@ const RadialChart = (props: { todayScore: number }) => {
       .call(arcTween, todayScore * Math.PI * -2)
 
     function arcTween(transition: any, newFinishAngle: number) {
-      transition.attrTween('d', function (d: any) {
+      transition.attrTween('d', function (d) {
         const interpolateEnd = d3.interpolate(d.endAngle, newFinishAngle)
         return function (t: number) {
           d.endAngle = interpolateEnd(t)

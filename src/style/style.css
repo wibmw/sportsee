@@ -191,6 +191,11 @@ nav {
     padding-left: 7vw;
   }
 }
+.barChart-svg {
+  background-color: #f5f7f9;
+  border-radius: 5px;
+}
+
 .bar_chart {
   grid-area: 2/1/3/4;
 }
@@ -257,6 +262,11 @@ nav {
 }
 
 /**************** Line Chart ****************/
+.line-chart-svg {
+  background-color: #ff0000;
+  border-radius: 5px;
+}
+
 .line_chart {
   grid-area: 1/1/2/2;
 }
@@ -290,6 +300,8 @@ nav {
 
 .legends {
   font-size: 1rem;
+  color: #fff;
+  margin-left: 20px;
 }
 
 /**************** Responsive ****************/
@@ -304,6 +316,11 @@ nav {
     font-weight: bold;
   }
 }
+.radial-chart-svg {
+  background-color: #f5f7f9;
+  border-radius: 5px;
+}
+
 .radial_chart {
   grid-area: 1/3/2/4;
 }

@@ -1,12 +1,11 @@
-import { IKeyData, IActivityItem } from '../api/Interfaces'
-import { FC } from 'react'
-import ActivityItem from '../components/ActivityItem'
-import proteinIcon from '../assets/images/proteinIcon.png'
-import caloriesIcon from '../assets/images/caloriesIcon.png'
-import carbsIcon from '../assets/images/carbsIcon.png'
-import fatIcon from '../assets/images/fatIcon.png'
+import { IKeyData } from '../../../api/Interfaces'
+import ActivityItem from './ActivityItem'
+import proteinIcon from '../../../assets/images/activityItems/proteinIcon.png'
+import caloriesIcon from '../../../assets/images/activityItems/caloriesIcon.png'
+import carbsIcon from '../../../assets/images/activityItems/carbsIcon.png'
+import fatIcon from '../../../assets/images/activityItems/fatIcon.png'
 
-const Activity: FC<IKeyData> = ({ calorieCount, proteinCount, carbohydrateCount, lipidCount }) => {
+const Activity = ({ calorieCount, proteinCount, carbohydrateCount, lipidCount }: IKeyData) => {
   return (
     /** *********** Banner Component ******************/
     <div className='activity'>

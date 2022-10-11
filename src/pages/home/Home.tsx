@@ -1,15 +1,15 @@
 import React from 'react'
-import SideBar from '../components/Sidebar'
-import TopMessage from '../components/TopMessage'
-import Activity from '../layout/Activity'
-import BarChart from '../layout/BarChart'
-import LineChart from '../layout/LineChart'
-import RadialChart from '../layout/RadialChart'
-import SpiderChart2 from '../layout/SpiderChart2'
-import Service from '../api/Service'
+import SideBar from '../../components/static/sideBar/Sidebar'
+import TopMessage from '../../components/static/topMessage/TopMessage'
+import Activity from '../../components/charts/activityItems/Activity'
+import BarChart from '../../components/charts/barChart/BarChart'
+import LineChart from '../../components/charts/lineChart/LineChart'
+import RadialChart from '../../components/charts/radialChart/RadialChart'
+import SpiderChart from '../../components/charts/spiderChart/SpiderChart'
+import Service from '../../api/Service'
 
 const Home = () => {
-  const service = new Service('12'),
+  const service = new Service('18'),
     user = service.getAllDatas(),
     userInfo = user.userInfos,
     sessionsActivity = user.sessionsActivity,
@@ -34,7 +34,7 @@ const Home = () => {
               <section id='performance_chart_section'>
                 {/** *********** 3 others Charts ******************/}
                 <LineChart session={sessionsAverage} />
-                <SpiderChart2 performances={performances} />
+                <SpiderChart performances={performances} />
                 <RadialChart todayScore={todayScore} />
               </section>
               {/** *********** Side Activities Infos ******************/}

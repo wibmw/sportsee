@@ -1,7 +1,8 @@
 import * as d3 from 'd3'
 import { useEffect, useState, useRef } from 'react'
-import { IAverageSessions, Size } from '../api/Interfaces'
-import {vh, vw} from '../utils/responsive'
+import { IAverageSessions, Size } from '../../../api/Interfaces'
+import { createSVG, svgGroups } from '../../../utils/d3Tools'
+import { vw } from '../../../utils/responsive'
 
 const LineChart = (props: { session: IAverageSessions[] }) => {
   // svg parent ref
@@ -11,7 +12,6 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
   // responsive width
   // The size of the window
   const [size, setSize] = useState<Size>()
-
 
   // responsive width
   const svgHeight = vw(16),
@@ -38,19 +38,11 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
 
   const DrawChart = (session: IAverageSessions[]) => {
     // dimentions
-    const graphWidth =
-      parseInt(d3.select(lineContainerRef.current).style('width')) - margin.left - margin.right
-    const graphHeight =
-      parseInt(d3.select(lineContainerRef.current).style('height')) - margin.top - margin.bottom
+    const graphWidth = parseInt(d3.select(lineContainerRef.current).style('width')) - margin.left - margin.right
+    const graphHeight = parseInt(d3.select(lineContainerRef.current).style('height')) - margin.top - margin.bottom
     // create new chart
-    const svg = d3
-      .select(lineContainerRef.current)
-      .append('svg')
-      .classed('line-chart-svg', true)
-      .attr('width', svgWidth)
-      .attr('height', svgHeight)
-      .style('background-color', '#FF0000')
-      .style('border-radius', '5px')
+    const svg = createSVG(lineContainerRef.current, 'line-chart-svg', svgWidth, svgHeight)
+
     // add a title
     svg
       .append('text')
@@ -84,10 +76,8 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
     svg
       .append('g')
       .call(xAxis)
-      .attr('color', '#fff')
       .attr('transform', `translate(0, ${graphHeight + margin.top - 10})`)
       .attr('class', 'legends')
-      .attr('margin-left', '20px')
       .select('.domain')
       .remove()
 
@@ -118,35 +108,14 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
         .ease(d3.easeSin)
 
       // Dots Tooltip
-      const groups = (
-        type: string,
-        x: number,
-        y: number,
-        width: string | number,
-        height: string | number,
-        className?: string,
-        text?: string,
-      ) => {
-        group
-          .append(type)
-          .attr(type === 'circle' ? 'cx' : 'x', x)
-          .attr(type === 'circle' ? 'cy' : 'y', y)
-          .attr('width', width)
-          .attr('height', height)
-          .attr('class', className || '')
-          .text(text || '')
-          .attr('r', type === 'circle' ? width : 0)
-          .attr('opacity', '0')
-      }
-
       const group = svg.append('g').attr('id', 'day' + index + 'average')
       const length = session[index].sessionLength
       const index1 = index + 1
-      groups('rect', xScale(index1), 0, '100%', graphHeight + margin.top + margin.bottom, 't--transparent')
-      groups('rect', displayTooltip(index1), yScale(length) - 25, 50, 20, 't--white')
-      groups('text', displayTooltip(index1) + 25, yScale(length) - 10, '', '', 't--text', length + 'min')
-      groups('circle', xScale(index1), yScale(length), 4, '', 't--white')
-      groups('circle', xScale(index1), yScale(length), 10, '', 't--lowOpacity', '')
+      svgGroups(group, 'rect', xScale(index1), 0, '100%', graphHeight + margin.top + margin.bottom, '', 't--transparent', 0)
+      svgGroups(group, 'rect', displayTooltip(index1), yScale(length) - 25, 50, 20, '', 't--white', 0)
+      svgGroups(group, 'text', displayTooltip(index1) + 25, yScale(length) - 10, '', '', length + 'min', 't--text', 0)
+      svgGroups(group, 'circle', xScale(index1), yScale(length), 4, '', '', 't--white', 0)
+      svgGroups(group, 'circle', xScale(index1), yScale(length), 10, '', '', 't--lowOpacity', 0)
 
       // hover area
       svg

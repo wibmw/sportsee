@@ -1,5 +1,9 @@
 /**************** Line Chart ****************/
-.line_chart{
+.line-chart-svg {
+  background-color: $primary-color;
+  border-radius: 5px;
+}
+.line_chart {
   grid-area: 1 / 1 / 2 / 2;
 }
 .tooltips {
@@ -30,6 +34,8 @@
 }
 .legends {
   font-size: 1rem;
+  color: #fff;
+  margin-left: 20px;
 }
 
 /**************** Responsive ****************/

@@ -5,15 +5,14 @@
 @import './base/index';
 @import './base/typography';
 
-@import './modules/topMessage';
+@import '../components/static/topMessage/topMessage';
+@import '../components/static/header/header';
+@import '../components/static/sideBar/sidebar';
+@import '../components/charts/activityItems/activity';
+@import '../components/charts/chartsSection';
+@import '../components/charts/barChart/barChart';
+@import '../components/charts/lineChart/lineChart';
+@import '../components/charts/radialChart/radialChart';
+@import '../components/charts/spiderChart/spiderChart';
 
-@import './layout/header';
-@import './layout/sidebar';
-@import './layout/activity';
-@import './layout/mainBlock';
-@import './layout/barChart';
-@import './layout/lineChart';
-@import './layout/radialChart';
-@import './layout/spiderChart';
-
-@import './pages/home';
+@import '../pages/home/home';

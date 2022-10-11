@@ -1,8 +1,9 @@
+import './sidebar.scss'
 import { NavLink } from 'react-router-dom'
-import yogaButton from '../assets/images/yogaButton.png'
-import swimmingButton from '../assets/images/swimmingButton.png'
-import bicycleButton from '../assets/images/bicycleButton.png'
-import bodyBuildingButton from '../assets/images/bodyBuildingButton.png'
+import yogaButton from '../../../assets/images/sideBar/yogaButton.png'
+import swimmingButton from '../../../assets/images/sideBar/swimmingButton.png'
+import bicycleButton from '../../../assets/images/sideBar/bicycleButton.png'
+import bodyBuildingButton from '../../../assets/images/sideBar/bodyBuildingButton.png'
 
 const Sidebar = () => {
   return (

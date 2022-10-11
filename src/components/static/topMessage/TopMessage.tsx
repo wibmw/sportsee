@@ -1,4 +1,4 @@
-import { IUserInfos } from '../api/Interfaces'
+import { IUserInfos } from '../../../api/Interfaces'
 import { FC } from 'react'
 
 const TopMessage: FC<IUserInfos> = ({ firstName }) => {

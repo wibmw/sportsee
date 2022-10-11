@@ -1,7 +1,6 @@
-import { IActivityItem } from '../api/Interfaces'
-import { FC } from 'react'
+import { IActivityItem } from '../../../api/Interfaces'
 
-const ActivityItem: FC<IActivityItem> = ({ icon, value, name, unit }) => {
+const ActivityItem = ({ icon, value, name, unit }: IActivityItem) => {
   const thousandsSeparator = (num: number) => {
     const numParts = num.toString().split('.')
     numParts[0] = numParts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')

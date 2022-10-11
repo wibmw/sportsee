@@ -1,4 +1,4 @@
-import { IUser, IUserInfos, IKeyData, IAverage, IActivitySessions, IValues } from './Interfaces'
+import { IUser } from './Interfaces'
 
 class User {
   protected readonly _user: IUser
@@ -18,6 +18,7 @@ class User {
     if (userInfos && userInfos) this._user.userInfos = userInfos
     return this
   }
+
   // Get Today Score Datas
   todayScore(todayScore): User {
     if (todayScore && todayScore) this._user.todayScore = todayScore
