@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /******************* COLORS ************************/
 /******************* Global Flex ************************/
 /******************* Center of the page *******************/
@@ -21,7 +20,7 @@ body {
   font-size: 100%;
 }
 
-/**************** Bannière ****************/
+/**************** Top greeting message ****************/
 .top_message {
   grid-area: 1/1/2/5;
 }
@@ -48,9 +47,6 @@ body {
   flex-shrink: 0;
   padding: 20px;
   background-color: black;
-  /*& .active {
-    text-decoration: underline;
-  }*/
 }
 .header_logo {
   width: 178px;
@@ -87,20 +83,33 @@ nav {
     margin-left: 5px;
   }
 }
-/**************** Footer ****************/
+/**************** Side Bar ****************/
 .sidebar {
   width: 120px;
   display: flex;
   background-color: black;
-  z-index: -1;
   flex-direction: column;
   height: auto;
   justify-content: space-around;
+}
+.sidebar_logAs {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  align-items: center;
+  text-align: center;
+  margin-top: -50px;
+}
+.sidebar_logAs a {
+  cursor: pointer;
+  text-decoration: none;
+  color: #ff0000;
 }
 .sidebar nav {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-top: -100px;
 }
 .sidebar_text {
   color: white;
@@ -108,7 +117,7 @@ nav {
   transform: rotate(-90deg);
   white-space: nowrap;
 }
-.sidebar_logo {
+.sidebar_button {
   width: 64px;
 }
 
@@ -178,11 +187,6 @@ nav {
 @media screen and (max-height: 898px) {
   #blank_footer {
     height: 10px;
-  }
-}
-@media screen and (max-width: 1550px) {
-  .recharts-polar-angle-axis-tick-value {
-    font-size: 0.8rem;
   }
 }
 @media screen and (max-width: 1250px) {
@@ -262,13 +266,10 @@ nav {
 }
 
 /**************** Line Chart ****************/
-.line-chart-svg {
-  background-color: #ff0000;
-  border-radius: 5px;
-}
-
 .line_chart {
   grid-area: 1/1/2/2;
+  background-color: #ff0000;
+  border-radius: 5px;
 }
 
 .tooltips {
@@ -316,23 +317,21 @@ nav {
     font-weight: bold;
   }
 }
-.radial-chart-svg {
+/**************** Radial Chart ****************/
+.radial_chart {
+  grid-area: 1/3/2/4;
   background-color: #f5f7f9;
   border-radius: 5px;
 }
 
-.radial_chart {
-  grid-area: 1/3/2/4;
+.radial_legend {
+  font-size: 1.5rem;
 }
 
-.radial {
+.radial_text {
   fill: #74798c;
   text-anchor: middle;
   font-size: 1.8rem;
-}
-
-.radial_title {
-  font-size: 1.5rem;
 }
 
 .r--black {
@@ -341,24 +340,25 @@ nav {
 
 /**************** Responsive ****************/
 @media screen and (max-width: 1550px) {
-  .radial {
+  .radial_text {
     font-size: 1.3rem;
   }
 
-  .radial_title {
+  .radial_legend {
     font-size: 1.2rem;
   }
 }
 @media screen and (max-width: 1250px) {
-  .radial {
+  .radial_text {
     font-size: 1rem;
     font-weight: bold;
   }
 
-  .radial_title {
+  .radial_legend {
     font-size: 1rem;
   }
 }
+/**************** Spider Chart ****************/
 .spider_chart {
   grid-area: 1/2/2/3;
 }
@@ -382,6 +382,50 @@ nav {
 /**************** Home Page ****************/
 #main_section {
   display: flex;
+}
+
+/**************** 404 Error ****************/
+#error404 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 0 auto;
+  color: #ff0000;
+  margin-top: -100px;
+  text-align: center;
+}
+#error404 h1 {
+  font-size: 288px;
+  margin-bottom: 10px;
+}
+#error404 a {
+  margin-top: 100px;
+  margin-bottom: 40px;
+  text-decoration: none;
+  color: #ff0000;
+}
+
+/**************** Responsive ****************/
+@media screen and (max-width: 768px) {
+  #error404 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ff0000;
+    margin-top: 0px;
+    flex: 1 0 auto;
+  }
+  #error404 h1 {
+    font-size: 96px;
+    margin-bottom: 10px;
+  }
+  #error404 h2 {
+    font-size: 18px;
+  }
+  #error404 a {
+    font-size: 14px;
+    margin-top: 50px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import SideBar from '../../components/static/sideBar/Sidebar'
 import TopMessage from '../../components/static/topMessage/TopMessage'
 import Activity from '../../components/charts/activityItems/Activity'
@@ -9,7 +10,12 @@ import SpiderChart from '../../components/charts/spiderChart/SpiderChart'
 import Service from '../../api/Service'
 
 const Home = () => {
-  const service = new Service('18'),
+  // Get params ID or set one as default
+  let id = useParams().id
+  id = id ? id : '12'
+  // Create an API service
+  const service = new Service(id),
+    // Get user informations
     user = service.getAllDatas(),
     userInfo = user.userInfos,
     sessionsActivity = user.sessionsActivity,
@@ -44,6 +50,7 @@ const Home = () => {
                 carbohydrateCount={carbohydrateCount}
                 lipidCount={lipidCount}
               />
+              {/** *********** Grid Blank Footer ******************/}
               <div id='blank_footer' />
             </div>
           </section>

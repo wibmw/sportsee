@@ -5,24 +5,24 @@ import { Size } from '../../../api/Interfaces'
 import { vw, svgRadius } from '../../../utils/responsive'
 
 const RadialChart = (props: { todayScore: number }) => {
-  // svg parent ref
-  const radialContainerRef = useRef<HTMLHeadingElement>(null)
-  // ref for resize event
-  const updateWidth = useRef(false)
-  // The size of the window
-  const [size, setSize] = useState<Size>()
-
-  // responsive width
-  const svgHeight = vw(16),
+  // SVG container
+  const radialContainerRef = useRef<HTMLHeadingElement>(null),
+    // ref for resize event
+    updateWidth = useRef(false),
+    // The size of the window
+    [size, setSize] = useState<Size>(),
+    // Get Responsive width
+    svgHeight = vw(16),
     svgWidth = vw(16),
-    margin = { top: 40, left: 30, right: 30, bottom: 20 }
-
-  const { radius, oRadius, iRadius } = svgRadius(svgWidth)
+    // Container margin
+    margin = { top: 40, left: 30, right: 30, bottom: 20 },
+    // Get Responsive Radius
+    { radius, oRadius, iRadius } = svgRadius(svgWidth)
 
   useEffect(() => {
-    // if resize remove the previous chart
-    updateWidth.current ? document?.querySelector('.radial-chart-svg')?.remove() : (updateWidth.current = true)
-    // re-draw the chart with new dimensions after resize
+    // If re-render, remove the previous chart
+    updateWidth.current ? document?.querySelector('.radial_chart')?.remove() : (updateWidth.current = true)
+    // Draw the chart
     DrawChart(props.todayScore)
     // Listening for the window resize event
     window.addEventListener('resize', resizeHanlder)
@@ -32,33 +32,29 @@ const RadialChart = (props: { todayScore: number }) => {
     }
   }, [props.todayScore, size])
 
-  // This function updates the state thus re-render components
+  // This function updates the state to re-render components
   const resizeHanlder = () => {
     setSize({ width: window.innerWidth, height: window.innerHeight })
   }
 
   const DrawChart = (todayScore: number) => {
-    // create new chart
-    const svg = createSVG(radialContainerRef.current, 'radial-chart-svg', svgWidth, svgHeight)
-
-    // add a title
-    svgDraw(svg, 'text', margin.left, margin.top, 'radial_title', 'Score')
-
+    // Create the SVG container
+    const svg = createSVG(radialContainerRef.current, 'radial_chart', svgWidth, svgHeight)
+    // Add a legend
+    svgDraw(svg, 'text', margin.left, margin.top, 'radial_legend', 'Score')
     // Draw the Circle
     svg
       .append('circle')
       .attr('transform', `translate(${svgWidth / 2}, ${svgHeight / 2 + margin.bottom})`)
       .attr('r', radius)
       .attr('fill', '#fff')
-    // center text
-    svgDraw(svg, 'text', '50%', '50%', 'radial r--black', `${todayScore * 100}%`)
-    svgDraw(svg, 'text', '50%', '62%', 'radial ', 'de votre')
-    svgDraw(svg, 'text', '50%', '73%', 'radial', 'objectif')
-
-    //
-
+    // Add the center score and text
+    svgDraw(svg, 'text', '50%', '50%', 'radial_text r--black', `${todayScore * 100}%`)
+    svgDraw(svg, 'text', '50%', '62%', 'radial_text', 'de votre')
+    svgDraw(svg, 'text', '50%', '73%', 'radial_text', 'objectif')
+    // Circle thickness
     const arcPath = d3.arc().outerRadius(oRadius).innerRadius(iRadius).startAngle(0).cornerRadius(8)
-
+    // Add the circle to the svg
     svg
       .append('g')
       .attr('transform', `translate(${svgWidth / 2}, ${svgHeight / 2 + margin.bottom})`)
@@ -69,7 +65,7 @@ const RadialChart = (props: { todayScore: number }) => {
       .transition()
       .duration(750)
       .call(arcTween, todayScore * Math.PI * -2)
-
+    // Define circle angle size
     function arcTween(transition: any, newFinishAngle: number) {
       transition.attrTween('d', function (d) {
         const interpolateEnd = d3.interpolate(d.endAngle, newFinishAngle)
@@ -81,7 +77,7 @@ const RadialChart = (props: { todayScore: number }) => {
     }
   }
 
-  return <div className='radial_chart' ref={radialContainerRef}></div>
+  return <div ref={radialContainerRef}></div>
 }
 
 export default RadialChart

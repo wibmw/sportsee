@@ -1,10 +1,9 @@
 /**************** Line Chart ****************/
-.line-chart-svg {
-  background-color: $primary-color;
-  border-radius: 5px;
-}
+
 .line_chart {
   grid-area: 1 / 1 / 2 / 2;
+  background-color: $primary-color;
+  border-radius: 5px;
 }
 .tooltips {
   opacity: 0;

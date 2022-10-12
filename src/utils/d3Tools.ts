@@ -104,3 +104,10 @@ export const svgGroups = (
   else group.attr('opacity', '0')
   return group
 }
+
+export const svgXScale = (domain:number[], range:number[]) => {
+  return d3
+  .scaleLinear()
+  .domain(domain)
+  .range(range)
+}

@@ -2,7 +2,6 @@
 @import './utils/mixins';
 
 @import './base/base';
-@import './base/index';
 @import './base/typography';
 
 @import '../components/static/topMessage/topMessage';
@@ -16,3 +15,4 @@
 @import '../components/charts/spiderChart/spiderChart';
 
 @import '../pages/home/home';
+@import '../pages/error/error';

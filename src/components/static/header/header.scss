@@ -10,7 +10,7 @@
   &_logo {
     @include wh(178px, 61px);
   }
-  // Nav Link
+  // Nav Links
   &_link {
     font-size: 24px;
     color: white;
@@ -20,12 +20,9 @@
     text-decoration: none;
     margin-left: 30px;
   }
-  // Active Nav Page
-  /*& .active {
-    text-decoration: underline;
-  }*/
 }
 
+// Nav section
 nav {
   width: stretch;
   display: flex;

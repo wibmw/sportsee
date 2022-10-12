@@ -1,7 +1,7 @@
 import { IUser } from './Interfaces'
 
 class User {
-  protected readonly _user: IUser
+  private readonly _user: IUser
 
   constructor() {
     this._user = {

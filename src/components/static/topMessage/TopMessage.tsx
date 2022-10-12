@@ -1,15 +1,14 @@
 import { IUserInfos } from '../../../api/Interfaces'
-import { FC } from 'react'
 
-const TopMessage: FC<IUserInfos> = ({ firstName }) => {
+const TopMessage = ({ firstName }: IUserInfos) => {
   return (
-    /** *********** Banner Component ******************/
+    /** *********** Top Message Section ******************/
     <article className='top_message'>
-      {/** *********** Banner Image ******************/}
+      {/** *********** Hello + Name ******************/}
       <h1 className='top_message_name'>
         Bonjour <span>{firstName}</span>
       </h1>
-      {/** *********** Banner Text ******************/}
+      {/** *********** Text Message ******************/}
       <p className='top_message_text'>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
     </article>
   )

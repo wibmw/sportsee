@@ -1,5 +1,4 @@
-import './sidebar.scss'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import yogaButton from '../../../assets/images/sideBar/yogaButton.png'
 import swimmingButton from '../../../assets/images/sideBar/swimmingButton.png'
 import bicycleButton from '../../../assets/images/sideBar/bicycleButton.png'
@@ -8,23 +7,34 @@ import bodyBuildingButton from '../../../assets/images/sideBar/bodyBuildingButto
 const Sidebar = () => {
   return (
     <aside className='sidebar'>
-      {/** *********** sidebar Buttons ******************/}
+      {/** *********** Log As Block ******************/}
+      <div className='sidebar_logAs'>
+        <h5>Se connecter en tant que:</h5>
+        <Link to={'/12'} reloadDocument className='link'>
+          Karl
+        </Link>
+        ou
+        <Link to={'/18'} reloadDocument className='link'>
+          Cecilia
+        </Link>
+      </div>
 
+      {/** *********** Side Bar Buttons ******************/}
       <nav>
-        <NavLink to={'/'} className='sidebar_button'>
-          <img src={yogaButton} className='sidebar_logo' alt='Kasa' />
+        <NavLink to={'/'}>
+          <img src={yogaButton} className='sidebar_button' alt='yoga' />
         </NavLink>
-        <NavLink to={'/'} className='sidebar_button'>
-          <img src={swimmingButton} className='sidebar_logo' alt='Kasa' />
+        <NavLink to={'/'}>
+          <img src={swimmingButton} className='sidebar_button' alt='swim' />
         </NavLink>
-        <NavLink to={'/'} className='sidebar_button'>
-          <img src={bicycleButton} className='sidebar_logo' alt='Kasa' />
+        <NavLink to={'/'}>
+          <img src={bicycleButton} className='sidebar_button' alt='bicycle' />
         </NavLink>
-        <NavLink to={'/'} className='sidebar_button'>
-          <img src={bodyBuildingButton} className='sidebar_logo' alt='Kasa' />
+        <NavLink to={'/'}>
+          <img src={bodyBuildingButton} className='sidebar_button' alt='body building' />
         </NavLink>
       </nav>
-      {/** *********** sidebar text ******************/}
+      {/** *********** Side Bar Copyright Text ******************/}
       <div className='sidebar_text'>Copiryght, SportSee 2020</div>
     </aside>
   )

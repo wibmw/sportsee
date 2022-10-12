@@ -1,14 +1,14 @@
 /**************** Charts Main Block ****************/
-
+// Section containing all charts
 #charts_block {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: fit-content(100%)  1fr;
+  grid-template-rows: fit-content(100%) 1fr;
   grid-row-gap: 30px;
   padding-top: 3vh;
   padding-left: 5vw;
 }
-
+// Right performance section
 #performance_chart_section {
   grid-area: 3 / 1 / 4 / 4;
   display: grid;
@@ -16,22 +16,16 @@
   grid-template-rows: 1fr;
   grid-column-gap: 30px;
 }
-
+// Bottom blank space
 #blank_footer {
   grid-area: 4 / 4 / 4/ 4;
   height: 78px;
 }
 
 /**************** Responsive ****************/
-@media screen and (max-height:898px) {
+@media screen and (max-height: 898px) {
   #blank_footer {
     height: 10px;
-  }
-}
-
-@media screen and (max-width: 1550px) {
-  .recharts-polar-angle-axis-tick-value {
-    font-size: 0.8rem;
   }
 }
 
