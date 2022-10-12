@@ -1,0 +1,19 @@
+/**************** Top greeting message ****************/
+.top_message {
+  grid-area: 1 / 1 / 2 / 5;
+  // Hello
+  &_name {
+    font-size: 48px;
+    margin-top: 0;
+    // Name
+    span {
+      color: red;
+    }
+  }
+  // text message
+  &_text {
+    font-size: 18px;
+    font-weight: 400;
+  }
+}
+/**************** Responsive ****************/

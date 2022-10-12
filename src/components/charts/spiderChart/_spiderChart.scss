@@ -1,0 +1,23 @@
+/**************** Spider Chart ****************/
+// Spider chart section
+.spider_chart {
+  grid-area: 1 / 2 / 2 / 3;
+}
+// chart legends
+.recharts-polar-angle-axis-tick-value {
+  transform: translate(2px, -2px) scaleY(1.05);
+}
+
+/**************** Responsive ****************/
+@media screen and (max-width: 1550px) {
+  .recharts-polar-angle-axis-tick-value {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 1250px) {
+  .recharts-polar-angle-axis-tick-value {
+    font-size: 0.5rem;
+    font-weight: bold;
+  }
+}

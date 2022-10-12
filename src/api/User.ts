@@ -1,56 +1,52 @@
-import { getDatas } from './Api'
-import { IUserInfos, IKeyData, IAverage, IActivitySession, IValues, IAverageSessions } from './Interfaces'
+import { IUser } from './Interfaces'
 
 class User {
-  protected readonly id: string
+  private readonly _user: IUser
 
-  constructor(id: string) {
-    this.id = id
+  constructor() {
+    this._user = {
+      userInfos: { firstName: '', lastName: '', age: 0 },
+      todayScore: 0,
+      keyData: { calorieCount: 0, proteinCount: 0, carbohydrateCount: 0, lipidCount: 0 },
+      sessionsAverage: [{ day: 0, sessionLength: 0 }],
+      sessionsActivity: [{ day: '1901-01-01', kilogram: 0, calories: 0 }],
+      performances: [{ value: 0, kind: '' }],
+    }
   }
   // Get User personnal Datas
-  getUserInfos(): IUserInfos {
-    const userInfos = getDatas(this.id, 'userInfos')
-
-    return userInfos ? userInfos : ({ firstName: '', lastName: '', age: 0 } as IUserInfos)
+  userInfos(userInfos): User {
+    if (userInfos && userInfos) this._user.userInfos = userInfos
+    return this
   }
+
   // Get Today Score Datas
-  getTodayScore(): number {
-    const todayScore = getDatas(this.id, 'todayScore')
-
-    return todayScore ? todayScore : 0
+  todayScore(todayScore): User {
+    if (todayScore && todayScore) this._user.todayScore = todayScore
+    return this
   }
-  // Get Key Datas
-  getKeyData(): IKeyData {
-    const keyData = getDatas(this.id, 'keyData')
 
-    return keyData
-      ? keyData
-      : ({ calorieCount: 0, proteinCount: 0, carbohydrateCount: 0, lipidCount: 0 } as IKeyData)
+  keyData(keyData): User {
+    if (keyData && keyData) this._user.keyData = keyData
+    return this
   }
   // Get Sessions Average Datas
-  getSessionsAverage(): IAverageSessions[] {
-    const sessions = getDatas(this.id + '/average-sessions', 'sessions')
-
-    return sessions ? sessions : ([{ day: 0, sessionLength: 0 }] as IAverageSessions[])
+  sessionsAverage(sessionsAverage): User {
+    if (sessionsAverage && sessionsAverage) this._user.sessionsAverage = sessionsAverage
+    return this
   }
   // Get Sessions Activity Datas
-  getSessionsActivity(): IActivitySession[] {
-    const sessions = getDatas(this.id + '/activity', 'sessions')
-
-    return sessions ? sessions : ([{ day: '1901-01-01', kilogram: 0, calories: 0 }] as IActivitySession[])
+  sessionsActivity(sessionsActivity): User {
+    if (sessionsActivity && sessionsActivity) this._user.sessionsActivity = sessionsActivity
+    return this
   }
   // Get Performance Datas
-  getPerformances(): IValues[] {
-    const data: [] = getDatas(this.id + '/performance', 'data')
-    const kinds = getDatas(this.id + '/performance', 'kind')
-    const performances: IValues[] = []
+  performances(performances): User {
+    if (performances && performances) this._user.performances = performances
+    return this
+  }
 
-    data &&
-      data.map((perf: IValues) => {
-        performances.push({ value: perf && perf.value, kind: kinds && kinds[perf.kind] })
-      })
-
-    return performances ? performances : ([{ value: 0, kind: '' }] as IValues[])
+  build(): IUser {
+    return this._user
   }
 }
 

@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import { Size } from '../api/Interfaces'
-
 export const vh = (percent) => {
   const screen = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
     h = (percent * screen) / 100
@@ -13,20 +10,20 @@ export const vw = (percent) => {
   return w > 155 ? w : 154
 }
 
-// This function updates the state thus re-render components
-const resizeHanlder = () => {
-  0
-}
+export const svgRadius = (width) => {
+  let radius = 50,
+    oRadius = 55,
+    iRadius = 48
 
-export const  resize = async(updateWidth) => {
-    // window.removeEventListener('resize', resizeHanlder)
-  // if resize remove the previous chart
-  updateWidth.current ? document?.querySelector('.line-chart-svg')?.remove() : (updateWidth.current = true)
+  if (width > 248) {
+    radius = 90
+    oRadius = 100
+    iRadius = 80
+  } else if (width > 200 && width <= 248) {
+    radius = 70
+    oRadius = 75
+    iRadius = 65
+  }
 
-  // Listening for the window resize event
-  window.addEventListener('resize', resizeHanlder)
-  // Cleanup function
-  // Remove the event listener when the component is unmounted
-  return { width:0, height:0}
-  
+  return { radius, oRadius, iRadius }
 }

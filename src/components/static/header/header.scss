@@ -1,0 +1,50 @@
+/**************** Header ****************/
+.header {
+  @include wh(100%, 100px);
+  @include flex-row-center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: 20px;
+  background-color: black;
+  // Home Logo
+  &_logo {
+    @include wh(178px, 61px);
+  }
+  // Nav Links
+  &_link {
+    font-size: 24px;
+    color: white;
+    font-weight: 500;
+    line-height: 24px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 30px;
+  }
+}
+
+// Nav section
+nav {
+  width: stretch;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+/**************** Responsive ****************/
+@media screen and (max-width: 768px) {
+  .header {
+    &_link {
+      text-transform: uppercase;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .header {
+    &_link {
+      font-size: 10px;
+      margin-left: 5px;
+    }
+  }
+}
