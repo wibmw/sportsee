@@ -35,12 +35,12 @@
 
 /******************* Margin *******************/
 
-@mixin margin-tb($top,$bot) {
+@mixin margin-tb($top, $bot) {
   margin-top: $top;
   margin-bottom: $bot;
 }
 
-@mixin margin-lr($left,$right) {
+@mixin margin-lr($left, $right) {
   margin-left: $left;
   margin-right: $right;
 }

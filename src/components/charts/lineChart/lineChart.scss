@@ -1,36 +1,35 @@
 /**************** Line Chart ****************/
-
+// Line Chart Section
 .line_chart {
   grid-area: 1 / 1 / 2 / 2;
   background-color: $primary-color;
   border-radius: 5px;
 }
+// Lines Tooltips
 .tooltips {
   opacity: 0;
   fill: $back-white;
 }
-
+// Groups colors
 .t--transparent {
   fill: rgba(0, 0, 0, 0.1);
 }
-
 .t--white {
   fill: $back-white;
 }
-
 .t--text {
   text-anchor: middle;
   fill: black;
 }
-
 .t--lowOpacity {
   fill: rgba(255, 255, 255, 0.504);
 }
-
+// xAxis center
 .xAxis {
   margin-left: 20px;
   margin-right: 20px;
 }
+// Chart Legends
 .legends {
   font-size: 1rem;
   color: #fff;

@@ -6,7 +6,7 @@ const client = axios.create({
   baseURL: 'http://localhost:3500/user/',
 })
 
-export const getDatas = (url: string, dataParam: string) => {
+export const getDatas = (id: string, url: string, dataParam: string) => {
   const conf: AxiosRequestConfig = {},
     [data, setData] = useState<any>(),
     [isError, setIsError] = useState(false),
@@ -21,9 +21,9 @@ export const getDatas = (url: string, dataParam: string) => {
     const fetchData = async () => {
       try {
         client
-          .get<[]>(url, conf)
+          .get<[]>(id + url, conf)
           .then((res: AxiosResponse) => {
-            if (res.status >= 200 && res.status < 300) setData(res.data.data[dataParam])
+            if (res.status >= 200 && res.status < 300) setData(res.data.data)
             else {
               console.error('404 : No user found !')
               navigate('./error', { state: { error: 'Aucun utilisteur trouvé !' } })
@@ -43,12 +43,12 @@ export const getDatas = (url: string, dataParam: string) => {
   // Fetch local datas
   const getMockedDatas = () => {
     let data
+    if (url === '/average-sessions') data = average.data
+    else if (url === '/activity') data = activity.data
+    else if (url === '/performance') data = performances.data
+    else data = user.data
 
-    if (url.includes('/average-sessions')) data = average.data[dataParam]
-    else if (url.includes('/activity')) data = activity.data[dataParam]
-    else if (url.includes('/performance')) data = performances.data[dataParam]
-    else data = user.data[dataParam === 'score' ? 'todayScore' : dataParam]
-    return data
+    return data.filter((data) => data?.id?.toString() === id || data?.userId?.toString() === id)[0][dataParam]
   }
 
   return data && data

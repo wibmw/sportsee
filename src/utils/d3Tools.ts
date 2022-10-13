@@ -1,15 +1,10 @@
 import * as d3 from 'd3'
 
+// Create SVG container
 export const createSVG = (select: HTMLHeadingElement, classed: string, width: string | number, height: string | number) => {
-  return d3
-    .select(select)
-    .append('svg')
-    .classed(classed, true)
-    .attr('width', width)
-    .attr('height', height)
-
+  return d3.select(select).append('svg').classed(classed, true).attr('width', width).attr('height', height)
 }
-
+// Draw
 export const svgDraw = (
   svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
   type: string,
@@ -25,7 +20,6 @@ export const svgDraw = (
     .text(text || '')
     .attr('class', className || '')
 }
-
 // Axis
 export const svgAxis = (
   svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
@@ -56,7 +50,6 @@ export const svgLegends = (
   r?: number,
 ) => {
   const legend = svg
-    .append('g')
     .append(type)
     .text(text || '')
     .attr(type === 'circle' ? 'cx' : 'dx', x)
@@ -66,7 +59,7 @@ export const svgLegends = (
 
   return legend
 }
-
+// Groups
 export const svgGroups = (
   svg: d3.Selection<SVGGElement, unknown, null, undefined>,
   type: string,
@@ -104,10 +97,7 @@ export const svgGroups = (
   else group.attr('opacity', '0')
   return group
 }
-
-export const svgXScale = (domain:number[], range:number[]) => {
-  return d3
-  .scaleLinear()
-  .domain(domain)
-  .range(range)
+// xScale
+export const svgXScale = (domain: number[], range: number[]) => {
+  return d3.scaleLinear().domain(domain).range(range)
 }

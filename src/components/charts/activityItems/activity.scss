@@ -1,3 +1,5 @@
+/**************** Activities Data ****************/
+// activity section
 .activity {
   grid-area: 2 / 4 / 4 / 5;
   display: flex;
@@ -5,20 +7,21 @@
   gap: 40px;
   flex-wrap: nowrap;
   margin-left: 30px;
+  // Items Block
   &_item {
     display: flex;
-    // @include wh(258px, 124px);
     background-color: $light-background;
     border-radius: 5px;
     padding: 2vw;
     margin-right: 50px;
-
+    // Icon
     &_icon {
       @include wh(60px, 60px);
     }
+    // Data Text
     &_text {
       margin-left: 24px;
-
+      // Data
       p {
         font-weight: 700;
         font-size: 20px;
@@ -26,6 +29,7 @@
         color: $secondary-color;
         margin: 0;
       }
+      // Type
       h3 {
         font-size: 14px;
         font-weight: 500;

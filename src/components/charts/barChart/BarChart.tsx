@@ -4,32 +4,31 @@ import { IActivitySessions, Size } from '../../../api/Interfaces'
 import { createSVG, svgAxis, svgLegends, svgGroups } from '../../../utils/d3Tools'
 
 const BarCharts = (session: IActivitySessions) => {
-  // svg parent ref
-  const chartContainerRef = useRef<HTMLHeadingElement>(null)
-  // ref for resize event
-  const updateBars = useRef(false)
-  // responsive width
-  // The size of the window
-  const [size, setSize] = useState<Size>()
-
-  const svgHeight = 320
-  const margin = { top: 50, left: 50, right: 20, bottom: 20 }
+  // SVG container
+  const chartContainerRef = useRef<HTMLHeadingElement>(null),
+    // ref for resize event
+    updateBars = useRef(false),
+    // The size of the window
+    [size, setSize] = useState<Size>(),
+    // Get Responsive width
+    svgHeight = 320,
+    // Container margin
+    margin = { top: 50, left: 50, right: 20, bottom: 20 }
 
   useEffect(() => {
-    // if resize remove the previous chart
+    // If re-render, remove the previous chart
     updateBars.current ? d3.select('.barChart-svg').remove() : (updateBars.current = true)
-    // re-draw the chart with new dimensions after resize
+    // Draw the chart
     DrawChart(session)
     // Listening for the window resize event
     window.addEventListener('resize', resizeHanlder)
-    // Cleanup function
     // Remove the event listener when the component is unmounted
     return () => {
       window.removeEventListener('resize', resizeHanlder)
     }
   }, [session, size])
 
-  // This function updates the state thus re-render components
+  // This function updates the state to re-render components
   const resizeHanlder = () => {
     setSize({ width: window.innerWidth, height: window.innerHeight })
   }
@@ -72,11 +71,9 @@ const BarCharts = (session: IActivitySessions) => {
     svgAxis(svg, yAxisGrid, graphWidth - margin.right, 'path', 'chart_axis_grid', true)
 
     // X axis
-    const extent = d3.extent(session.map((d) => new Date(d.day).getDate())) as number[]
-
-    const xScale = scales(extent, [margin.left, graphWidth - margin.right])
-
-    const xAxis = d3.axisBottom(xScale).tickSize(0).tickPadding(margin.bottom).ticks(7)
+    const extent = d3.extent(session.map((d) => new Date(d.day).getDate())) as number[],
+      xScale = scales(extent, [margin.left, graphWidth - margin.right]),
+      xAxis = d3.axisBottom(xScale).tickSize(0).tickPadding(margin.bottom).ticks(7)
 
     svgAxis(svg, xAxis, svgHeight - margin.top, 'path', 'legends_text')
 
@@ -88,7 +85,7 @@ const BarCharts = (session: IActivitySessions) => {
     svgLegends(svg, 'circle', '', graphWidth - 100, margin.bottom + 5, 'red_circle', 4)
     svgLegends(svg, 'text', 'Calories brûlées (kCal)', graphWidth - 90, margin.bottom + 10, 'legends_text')
 
-    // session
+    // Bars creation
     const lines = (isWeight: boolean, isRounded: boolean, className: string) => {
       const xDiff = isWeight ? -7 : 7,
         yDiff = isRounded ? -5 : 0,
@@ -131,9 +128,7 @@ const BarCharts = (session: IActivitySessions) => {
         if (xScale(index) <= graphWidth - margin.left - margin.right) return xScale(index)
         else return xScale(index) - 100
       }
-      const group = svg
-      .append('g')
-      .attr('id', `day${index + 1}`)
+      const group = svg.append('g').attr('id', `day${index + 1}`)
       // create gray rectangles for hover
       svgGroups(group, 'rect', xScale(index + 1) - 40, margin.top + 10, 60, 210, '', 'bar_chart_tooltip', index)
       // tooltip red square
@@ -141,7 +136,17 @@ const BarCharts = (session: IActivitySessions) => {
       // weight tooltip info
       svgGroups(group, 'text', displayTooltip(index + 1) + 47, 55, 0, 0, d.kilogram + 'Kg', 'bar_chart_tooltip-text', index)
       // calories tooltip info
-      svgGroups(group, 'text', displayTooltip(index + 1) + 47, 85, 0, 0, d.calories + 'Kcal', 'bar_chart_tooltip-text', index)
+      svgGroups(
+        group,
+        'text',
+        displayTooltip(index + 1) + 47,
+        85,
+        0,
+        0,
+        d.calories + 'Kcal',
+        'bar_chart_tooltip-text',
+        index,
+      )
     })
   }
 
