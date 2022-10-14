@@ -2,15 +2,23 @@ import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { activity, average, performances, user } from './mockedDatas'
-const client = axios.create({
-  baseURL: 'http://localhost:3500/user/',
-})
 
+/**
+ * Get and returns datas from the back-end or the mocked datas
+ * @module 
+ * @param {string} id User id
+ * @param {string} url Back-end path for url
+ * @param {string} dataParam Data de get from the returned datas
+ * @returns {*} data
+ */
 export const getDatas = (id: string, url: string, dataParam: string) => {
   const conf: AxiosRequestConfig = {},
     [data, setData] = useState<any>(),
     [isError, setIsError] = useState(false),
-    navigate = useNavigate()
+    navigate = useNavigate(),
+    client = axios.create({
+      baseURL: 'http://localhost:3500/user/',
+    })
 
   conf.validateStatus = (status: number) => {
     return (status >= 200 && status < 300) || status == 404
@@ -18,6 +26,13 @@ export const getDatas = (id: string, url: string, dataParam: string) => {
 
   // Fetch data from the API
   useEffect(() => {
+    /**
+     * Description placeholder
+     * @date 10/14/2022 - 3:19:04 PM
+     *
+     * @async
+     * @returns {*}
+     */
     const fetchData = async () => {
       try {
         client
@@ -40,7 +55,10 @@ export const getDatas = (id: string, url: string, dataParam: string) => {
     fetchData()
   }, [])
 
-  // Fetch local datas
+  /**
+   * Fetch local datas
+   * @returns {*}
+   */
   const getMockedDatas = () => {
     let data
     if (url === '/average-sessions') data = average.data

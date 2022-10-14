@@ -180,7 +180,7 @@ nav {
 
 #blank_footer {
   grid-area: 4/4/4/4;
-  height: 78px;
+  height: 6.5vh;
 }
 
 /**************** Responsive ****************/

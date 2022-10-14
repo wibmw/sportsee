@@ -1,10 +1,28 @@
 import * as d3 from 'd3'
 
-// Create SVG container
+/**
+ * Create SVG container
+ * @module
+ * @param {HTMLHeadingElement} select
+ * @param {string} classed
+ * @param {(string | number)} width
+ * @param {(string | number)} height
+ * @returns {*}
+ */
 export const createSVG = (select: HTMLHeadingElement, classed: string, width: string | number, height: string | number) => {
   return d3.select(select).append('svg').classed(classed, true).attr('width', width).attr('height', height)
 }
-// Draw
+
+/**
+ * Draw
+ * @module
+ * @param {d3.Selection<SVGSVGElement, unknown, null, undefined>} svg
+ * @param {string} type
+ * @param {(number | string)} x
+ * @param {(number | string)} y
+ * @param {string} className
+ * @param {string} text
+ */
 export const svgDraw = (
   svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
   type: string,
@@ -20,7 +38,18 @@ export const svgDraw = (
     .text(text || '')
     .attr('class', className || '')
 }
-// Axis
+
+/**
+ * Axis
+ * @module
+ * @param {d3.Selection<SVGSVGElement, unknown, null, undefined>} svg
+ * @param {*} axis
+ * @param {number} translate
+ * @param {string} select
+ * @param {?string} [className]
+ * @param {?boolean} [remove]
+ * @returns {*}
+ */
 export const svgAxis = (
   svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
   axis: any,
@@ -39,7 +68,19 @@ export const svgAxis = (
 
   return svgAxis
 }
-// legends
+
+/**
+ * Legends
+ * @module
+ * @param {d3.Selection<SVGSVGElement, unknown, null, undefined>} svg
+ * @param {string} type
+ * @param {string} text
+ * @param {number} x
+ * @param {number} y
+ * @param {string} className
+ * @param {?number} [r]
+ * @returns {*}
+ */
 export const svgLegends = (
   svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
   type: string,
@@ -59,7 +100,21 @@ export const svgLegends = (
 
   return legend
 }
-// Groups
+
+/**
+ * Groups
+ * @module
+ * @param {d3.Selection<SVGGElement, unknown, null, undefined>} svg
+ * @param {string} type
+ * @param {number} x
+ * @param {number} y
+ * @param {(number | string)} width
+ * @param {(number | string)} height
+ * @param {string} text
+ * @param {string} className
+ * @param {number} index
+ * @returns {*}
+ */
 export const svgGroups = (
   svg: d3.Selection<SVGGElement, unknown, null, undefined>,
   type: string,
@@ -97,7 +152,14 @@ export const svgGroups = (
   else group.attr('opacity', '0')
   return group
 }
-// xScale
+
+/**
+ * xScale
+ * @module
+ * @param {number[]} domain
+ * @param {number[]} range
+ * @returns {*}
+ */
 export const svgXScale = (domain: number[], range: number[]) => {
   return d3.scaleLinear().domain(domain).range(range)
 }

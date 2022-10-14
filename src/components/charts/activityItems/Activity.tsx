@@ -5,6 +5,14 @@ import caloriesIcon from '../../../assets/images/activityItems/caloriesIcon.png'
 import carbsIcon from '../../../assets/images/activityItems/carbsIcon.png'
 import fatIcon from '../../../assets/images/activityItems/fatIcon.png'
 
+
+/**
+ * Description placeholder
+ * @date 10/14/2022 - 3:17:56 PM
+ *
+ * @param {IKeyData} { calorieCount, proteinCount, carbohydrateCount, lipidCount }
+ * @returns {*}
+ */
 const Activity = ({ calorieCount, proteinCount, carbohydrateCount, lipidCount }: IKeyData) => {
   return (
     /** *********** Banner Component ******************/

@@ -1,8 +1,17 @@
 import { IUser } from './Interfaces'
 
+/**
+ * User Class
+ * @class User
+ * @typedef {User}
+ */
 class User {
   private readonly _user: IUser
 
+  /**
+   * Creates an instance of User.
+   * @constructor
+   */
   constructor() {
     this._user = {
       userInfos: { firstName: '', lastName: '', age: 0 },
@@ -13,38 +22,72 @@ class User {
       performances: [{ value: 0, kind: '' }],
     }
   }
-  // Get User personnal Datas
+
+  /**
+   * Get User personnal Datas
+   * @param {IUserInfos} userInfos
+   * @returns {User}
+   */
   userInfos(userInfos): User {
     if (userInfos && userInfos) this._user.userInfos = userInfos
     return this
   }
 
-  // Get Today Score Datas
+  /**
+   * Get Today Score Datas
+   * @param {number} todayScore
+   * @returns {User}
+   */
   todayScore(todayScore): User {
     if (todayScore && todayScore) this._user.todayScore = todayScore
     return this
   }
 
+  /**
+   * Description placeholder
+   * @param {IKeyData} keyData
+   * @returns {User}
+   */
   keyData(keyData): User {
     if (keyData && keyData) this._user.keyData = keyData
     return this
   }
-  // Get Sessions Average Datas
+  //
+
+  /**
+   * Get Sessions Average Datas
+   * @param {IAverageSessions[]} sessionsAverage
+   * @returns {User}
+   */
   sessionsAverage(sessionsAverage): User {
     if (sessionsAverage && sessionsAverage) this._user.sessionsAverage = sessionsAverage
     return this
   }
-  // Get Sessions Activity Datas
+
+  /**
+   * Get Sessions Activity Datas
+   * @param {IActivitySession[]} sessionsActivity
+   * @returns {User}
+   */
   sessionsActivity(sessionsActivity): User {
     if (sessionsActivity && sessionsActivity) this._user.sessionsActivity = sessionsActivity
     return this
   }
-  // Get Performance Datas
+
+  /**
+   * Get Performance Datas
+   * @param {IValues[]} performances
+   * @returns {User}
+   */
   performances(performances): User {
     if (performances && performances) this._user.performances = performances
     return this
   }
 
+  /**
+   * Returns the entire User
+   * @returns {IUser}
+   */
   build(): IUser {
     return this._user
   }
