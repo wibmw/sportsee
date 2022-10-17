@@ -3,6 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { IValues, Size } from '../../../api/Interfaces'
 import { vw, svgRadius } from '../../../utils/responsive'
 
+/**
+ * React Component: Returns the Spider Chart from Performances Datas
+ *
+ * @module
+ * @param {{ performances: IValues[] }} props
+ * @returns {*}
+ */
 const SpiderChart = (props: { performances: IValues[] }) => {
   // The size of the window
   const [size, setSize] = useState<Size>({ width: 0, height: 0 }),

@@ -1,6 +1,12 @@
 import { NavLink } from 'react-router-dom'
 import homeLogo from '../../../assets/images/logo.png'
 
+/**
+ * React Component: Returns the Header
+ *
+ * @module
+ * @returns {*}
+ */
 const Header = () => {
   return (
     <header className='header'>

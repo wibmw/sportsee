@@ -25,6 +25,7 @@ class User {
 
   /**
    * Get User personnal Datas
+   * @method
    * @param {IUserInfos} userInfos
    * @returns {User}
    */
@@ -35,6 +36,7 @@ class User {
 
   /**
    * Get Today Score Datas
+   * @method
    * @param {number} todayScore
    * @returns {User}
    */
@@ -45,6 +47,7 @@ class User {
 
   /**
    * Description placeholder
+   * @method
    * @param {IKeyData} keyData
    * @returns {User}
    */
@@ -56,6 +59,7 @@ class User {
 
   /**
    * Get Sessions Average Datas
+   * @method
    * @param {IAverageSessions[]} sessionsAverage
    * @returns {User}
    */
@@ -66,6 +70,7 @@ class User {
 
   /**
    * Get Sessions Activity Datas
+   * @method
    * @param {IActivitySession[]} sessionsActivity
    * @returns {User}
    */
@@ -76,6 +81,7 @@ class User {
 
   /**
    * Get Performance Datas
+   * @method
    * @param {IValues[]} performances
    * @returns {User}
    */
@@ -86,6 +92,7 @@ class User {
 
   /**
    * Returns the entire User
+   * @method
    * @returns {IUser}
    */
   build(): IUser {

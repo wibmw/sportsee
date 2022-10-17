@@ -1,5 +1,12 @@
 import { IActivityItem } from '../../../api/Interfaces'
 
+/**
+ * React Component: Returns One Activity Item
+ * 
+ * @module
+ * @param {IActivityItem} { icon, value, name, unit }
+ * @returns {*}
+ */
 const ActivityItem = ({ icon, value, name, unit }: IActivityItem) => {
   // Thousands Space separator
   const thousandsSeparator = (num: number) => {

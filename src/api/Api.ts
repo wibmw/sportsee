@@ -5,7 +5,8 @@ import { activity, average, performances, user } from './mockedDatas'
 
 /**
  * Get and returns datas from the back-end or the mocked datas
- * @module 
+ *
+ * @module
  * @param {string} id User id
  * @param {string} url Back-end path for url
  * @param {string} dataParam Data de get from the returned datas
@@ -27,24 +28,28 @@ export const getDatas = (id: string, url: string, dataParam: string) => {
   // Fetch data from the API
   useEffect(() => {
     /**
-     * Description placeholder
-     * @date 10/14/2022 - 3:19:04 PM
+     * Fetch from API datas
      *
+     * @method
      * @async
      * @returns {*}
      */
     const fetchData = async () => {
+      const validIds = ['12', '18']
       try {
         client
           .get<[]>(id + url, conf)
           .then((res: AxiosResponse) => {
-            if (res.status >= 200 && res.status < 300) setData(res.data.data)
+            if (((res.status >= 200 && res.status < 300) || isError === false) && validIds.includes(id))
+              setData(res.data.data[dataParam])
             else {
+              setIsError(true)
               console.error('404 : No user found !')
               navigate('./error', { state: { error: 'Aucun utilisteur trouvé !' } })
             }
           })
           .catch((error) => {
+            setIsError(true)
             setData(getMockedDatas())
             console.log('INFO: Utilisation des données locales, car l\'API distante n\'est pas disponible. \n' + error)
           })
@@ -56,17 +61,19 @@ export const getDatas = (id: string, url: string, dataParam: string) => {
   }, [])
 
   /**
-   * Fetch local datas
+   * Fetch from local datas
+   *
+   * @method
    * @returns {*}
    */
   const getMockedDatas = () => {
-    let data
-    if (url === '/average-sessions') data = average.data
-    else if (url === '/activity') data = activity.data
-    else if (url === '/performance') data = performances.data
-    else data = user.data
+    let datas
+    if (url === '/average-sessions') datas = average.data
+    else if (url === '/activity') datas = activity.data
+    else if (url === '/performance') datas = performances.data
+    else datas = user.data
 
-    return data.filter((data) => data?.id?.toString() === id || data?.userId?.toString() === id)[0][dataParam]
+    return datas && datas.filter((data) => data?.id?.toString() === id || data?.userId?.toString() === id)[0][dataParam]
   }
 
   return data && data

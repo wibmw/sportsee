@@ -9,6 +9,12 @@ import RadialChart from '../../components/charts/radialChart/RadialChart'
 import SpiderChart from '../../components/charts/spiderChart/SpiderChart'
 import Service from '../../api/Service'
 
+/**
+ * React Component: Home Page
+ *
+ * @module
+ * @returns {*}
+ */
 const Home = () => {
   // Get params ID or set one as default
   let id = useParams().id

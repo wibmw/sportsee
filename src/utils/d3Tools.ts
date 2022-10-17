@@ -1,38 +1,36 @@
 import * as d3 from 'd3'
 
 /**
- * Create SVG container
+ * D3: SVG container
  * @module
  * @param {HTMLHeadingElement} select
  * @param {string} classed
  * @param {(string | number)} width
  * @param {(string | number)} height
- * @returns {*}
+ * @returns {SVGSVGElement}
  */
 export const createSVG = (select: HTMLHeadingElement, classed: string, width: string | number, height: string | number) => {
   return d3.select(select).append('svg').classed(classed, true).attr('width', width).attr('height', height)
 }
 
 /**
- * Draw
+ * D3: Add text on Charts
  * @module
  * @param {d3.Selection<SVGSVGElement, unknown, null, undefined>} svg
- * @param {string} type
  * @param {(number | string)} x
  * @param {(number | string)} y
  * @param {string} className
  * @param {string} text
  */
-export const svgDraw = (
+export const svgAddText = (
   svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
-  type: string,
   x: number | string,
   y: number | string,
   className: string,
   text: string,
 ) => {
   svg
-    .append(type)
+    .append('text')
     .attr('x', x)
     .attr('y', y)
     .text(text || '')
@@ -40,7 +38,7 @@ export const svgDraw = (
 }
 
 /**
- * Axis
+ * D3: Add Axis on charts
  * @module
  * @param {d3.Selection<SVGSVGElement, unknown, null, undefined>} svg
  * @param {*} axis
@@ -70,8 +68,8 @@ export const svgAxis = (
 }
 
 /**
- * Legends
- * @module
+ * D3: Add Legends Dots on charts
+ * @meth
  * @param {d3.Selection<SVGSVGElement, unknown, null, undefined>} svg
  * @param {string} type
  * @param {string} text
@@ -81,7 +79,7 @@ export const svgAxis = (
  * @param {?number} [r]
  * @returns {*}
  */
-export const svgLegends = (
+export const svgLegendDots = (
   svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
   type: string,
   text: string,
@@ -102,7 +100,7 @@ export const svgLegends = (
 }
 
 /**
- * Groups
+ * D3: Add Groups of elements on charts
  * @module
  * @param {d3.Selection<SVGGElement, unknown, null, undefined>} svg
  * @param {string} type
@@ -154,7 +152,7 @@ export const svgGroups = (
 }
 
 /**
- * xScale
+ * D3: Returns xScale for X Axis
  * @module
  * @param {number[]} domain
  * @param {number[]} range

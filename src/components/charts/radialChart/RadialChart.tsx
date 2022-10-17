@@ -1,9 +1,16 @@
 import * as d3 from 'd3'
-import { createSVG, svgDraw } from '../../../utils/d3Tools'
+import { createSVG, svgAddText } from '../../../utils/d3Tools'
 import { useEffect, useRef, useState } from 'react'
 import { Size } from '../../../api/Interfaces'
 import { vw, svgRadius } from '../../../utils/responsive'
 
+/**
+ * React Component: Returns theRadial Chart from Toaday Score
+ *
+ * @module
+ * @param {{ todayScore: number }} props
+ * @returns {*}
+ */
 const RadialChart = (props: { todayScore: number }) => {
   // SVG container
   const radialContainerRef = useRef<HTMLHeadingElement>(null),
@@ -41,7 +48,7 @@ const RadialChart = (props: { todayScore: number }) => {
     // Create the SVG container
     const svg = createSVG(radialContainerRef.current, 'radial_chart', svgWidth, svgHeight)
     // Add a legend
-    svgDraw(svg, 'text', margin.left, margin.top, 'radial_legend', 'Score')
+    svgAddText(svg, margin.left, margin.top, 'radial_legend', 'Score')
     // Draw the Circle
     svg
       .append('circle')
@@ -49,9 +56,9 @@ const RadialChart = (props: { todayScore: number }) => {
       .attr('r', radius)
       .attr('fill', '#fff')
     // Add the center score and text
-    svgDraw(svg, 'text', '50%', '50%', 'radial_text r--black', `${todayScore * 100}%`)
-    svgDraw(svg, 'text', '50%', '62%', 'radial_text', 'de votre')
-    svgDraw(svg, 'text', '50%', '73%', 'radial_text', 'objectif')
+    svgAddText(svg, '50%', '50%', 'radial_text r--black', `${todayScore * 100}%`)
+    svgAddText(svg, '50%', '62%', 'radial_text', 'de votre')
+    svgAddText(svg, '50%', '73%', 'radial_text', 'objectif')
     // Circle thickness
     const arcPath = d3.arc().outerRadius(oRadius).innerRadius(iRadius).startAngle(0).cornerRadius(8)
     // Add the circle to the svg

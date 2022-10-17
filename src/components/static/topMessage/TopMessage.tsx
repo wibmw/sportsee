@@ -1,5 +1,12 @@
 import { IUserInfos } from '../../../api/Interfaces'
 
+/**
+ * React Component: Returns the Top Message Section
+ *
+ * @module
+ * @param {IUserInfos} { firstName }
+ * @returns {*}
+ */
 const TopMessage = ({ firstName }: IUserInfos) => {
   return (
     /** *********** Top Message Section ******************/

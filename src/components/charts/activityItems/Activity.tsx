@@ -5,11 +5,10 @@ import caloriesIcon from '../../../assets/images/activityItems/caloriesIcon.png'
 import carbsIcon from '../../../assets/images/activityItems/carbsIcon.png'
 import fatIcon from '../../../assets/images/activityItems/fatIcon.png'
 
-
 /**
- * Description placeholder
- * @date 10/14/2022 - 3:17:56 PM
- *
+ * React Component: Returns All Activities Items
+ * 
+ * @module
  * @param {IKeyData} { calorieCount, proteinCount, carbohydrateCount, lipidCount }
  * @returns {*}
  */

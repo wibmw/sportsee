@@ -4,6 +4,12 @@ import swimmingButton from '../../../assets/images/sideBar/swimmingButton.png'
 import bicycleButton from '../../../assets/images/sideBar/bicycleButton.png'
 import bodyBuildingButton from '../../../assets/images/sideBar/bodyBuildingButton.png'
 
+/**
+ * React Component: Returns the Side Bar Component
+ *
+ * @module
+ * @returns {*}
+ */
 const Sidebar = () => {
   return (
     <aside className='sidebar'>

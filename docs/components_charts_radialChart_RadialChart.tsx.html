@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/charts/radialChart/RadialChart.tsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/charts/radialChart/RadialChart.tsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import * as d3 from 'd3'
+import { createSVG, svgAddText } from '../../../utils/d3Tools'
+import { useEffect, useRef, useState } from 'react'
+import { Size } from '../../../api/Interfaces'
+import { vw, svgRadius } from '../../../utils/responsive'
+
+/**
+ * React Component: Returns theRadial Chart from Toaday Score
+ *
+ * @module
+ * @param {{ todayScore: number }} props
+ * @returns {*}
+ */
+const RadialChart = (props: { todayScore: number }) => {
+  // SVG container
+  const radialContainerRef = useRef&lt;HTMLHeadingElement>(null),
+    // ref for resize event
+    updateWidth = useRef(false),
+    // The size of the window
+    [size, setSize] = useState&lt;Size>(),
+    // Get Responsive width
+    svgHeight = vw(16),
+    svgWidth = vw(16),
+    // Container margin
+    margin = { top: 40, left: 30, right: 30, bottom: 20 },
+    // Get Responsive Radius
+    { radius, oRadius, iRadius } = svgRadius(svgWidth)
+
+  useEffect(() => {
+    // If re-render, remove the previous chart
+    updateWidth.current ? document?.querySelector('.radial_chart')?.remove() : (updateWidth.current = true)
+    // Draw the chart
+    DrawChart(props.todayScore)
+    // Listening for the window resize event
+    window.addEventListener('resize', resizeHanlder)
+    // Remove the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener('resize', resizeHanlder)
+    }
+  }, [props.todayScore, size])
+
+  // This function updates the state to re-render components
+  const resizeHanlder = () => {
+    setSize({ width: window.innerWidth, height: window.innerHeight })
+  }
+
+  const DrawChart = (todayScore: number) => {
+    // Create the SVG container
+    const svg = createSVG(radialContainerRef.current, 'radial_chart', svgWidth, svgHeight)
+    // Add a legend
+    svgAddText(svg, margin.left, margin.top, 'radial_legend', 'Score')
+    // Draw the Circle
+    svg
+      .append('circle')
+      .attr('transform', `translate(${svgWidth / 2}, ${svgHeight / 2 + margin.bottom})`)
+      .attr('r', radius)
+      .attr('fill', '#fff')
+    // Add the center score and text
+    svgAddText(svg, '50%', '50%', 'radial_text r--black', `${todayScore * 100}%`)
+    svgAddText(svg, '50%', '62%', 'radial_text', 'de votre')
+    svgAddText(svg, '50%', '73%', 'radial_text', 'objectif')
+    // Circle thickness
+    const arcPath = d3.arc().outerRadius(oRadius).innerRadius(iRadius).startAngle(0).cornerRadius(8)
+    // Add the circle to the svg
+    svg
+      .append('g')
+      .attr('transform', `translate(${svgWidth / 2}, ${svgHeight / 2 + margin.bottom})`)
+      .append('path')
+      .datum({ endAngle: -0.1 })
+      .attr('d', arcPath as any)
+      .attr('class', 'red_circle')
+      .transition()
+      .duration(750)
+      .call(arcTween, todayScore * Math.PI * -2)
+    // Define circle angle size
+    function arcTween(transition: any, newFinishAngle: number) {
+      transition.attrTween('d', function (d) {
+        const interpolateEnd = d3.interpolate(d.endAngle, newFinishAngle)
+        return function (t: number) {
+          d.endAngle = interpolateEnd(t)
+          return arcPath(d)
+        }
+      })
+    }
+  }
+
+  return &lt;div ref={radialContainerRef}>&lt;/div>
+}
+
+export default RadialChart
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="api_Api.module_ts.html">ts</a></li><li><a href="components_charts_activityItems_Activity.module_tsx.html">tsx</a></li><li><a href="components_charts_activityItems_ActivityItem.module_tsx.html">tsx</a></li><li><a href="components_charts_barChart_BarChart.module_tsx.html">tsx</a></li><li><a href="components_charts_lineChart_LineChart.module_tsx.html">tsx</a></li><li><a href="components_charts_radialChart_RadialChart.module_tsx.html">tsx</a></li><li><a href="components_charts_spiderChart_SpiderChart.module_tsx.html">tsx</a></li><li><a href="components_static_header_Header.module_tsx.html">tsx</a></li><li><a href="components_static_sideBar_Sidebar.module_tsx.html">tsx</a></li><li><a href="components_static_topMessage_TopMessage.module_tsx.html">tsx</a></li><li><a href="pages_error_Error.module_tsx.html">tsx</a></li><li><a href="pages_home_Home.module_tsx.html">tsx</a></li><li><a href="utils_d3Tools.module_ts.html">ts</a></li></ul><h3>Classes</h3><ul><li><a href="global.html#Service">Service</a></li><li><a href="Service_Service.html">Service</a></li><li><a href="global.html#User">User</a></li><li><a href="User_User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#svgRadius">svgRadius</a></li><li><a href="global.html#vh">vh</a></li><li><a href="global.html#vw">vw</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Mon Oct 17 2022 16:16:53 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

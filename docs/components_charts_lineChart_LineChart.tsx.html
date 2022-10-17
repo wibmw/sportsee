@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/charts/lineChart/LineChart.tsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/charts/lineChart/LineChart.tsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import * as d3 from 'd3'
+import { useEffect, useState, useRef } from 'react'
+import { IAverageSessions, Size } from '../../../api/Interfaces'
+import { createSVG, svgGroups, svgXScale, svgAddText } from '../../../utils/d3Tools'
+import { vw } from '../../../utils/responsive'
+
+/**
+ * React Component: Returns the Line Chart from Average Sessions Datas
+ * 
+ * @module
+ * @param {{ session: IAverageSessions[] }} props
+ * @returns {*}
+ */
+const LineChart = (props: { session: IAverageSessions[] }) => {
+  // SVG container
+  const lineContainerRef = useRef&lt;HTMLHeadingElement>(null),
+    // ref for resize event
+    updateWidth = useRef(false),
+    // The size of the window
+    [size, setSize] = useState&lt;Size>(),
+    // Get Responsive width
+    svgHeight = vw(16),
+    svgWidth = vw(16),
+    // Container margin
+    margin = { top: 35, left: 20, right: 20, bottom: 35 }
+
+  useEffect(() => {
+    // If re-render, remove the previous chart
+    updateWidth.current ? document?.querySelector('.line_chart')?.remove() : (updateWidth.current = true)
+    // Draw the chart
+    DrawChart(props.session)
+    // Listening for the window resize event
+    window.addEventListener('resize', resizeHanlder)
+    // Remove the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener('resize', resizeHanlder)
+    }
+  }, [props.session, size])
+
+  // This function updates the state to re-render components
+  const resizeHanlder = () => {
+    setSize({ width: window.innerWidth, height: window.innerHeight })
+  }
+
+  const DrawChart = (session: IAverageSessions[]) => {
+    // Chart size
+    const graphHeight = svgHeight - margin.top - margin.bottom
+    // Create the SVG container
+    const svg = createSVG(lineContainerRef.current, 'line_chart', svgWidth, svgHeight)
+
+    // Add a title
+    svgAddText(svg, margin.right, margin.top, 'legends', 'Durée moyenne des sessions')
+
+    // X Scales
+    const xScale = svgXScale([1, 7], [1, svgWidth - 3])
+    const xScaleAxis = svgXScale([1, 7], [15, svgWidth - 15])
+    // Week Days list
+    const week = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
+    // X axis
+    const xAxis = d3
+      .axisBottom(xScaleAxis)
+      .tickSize(0)
+      .ticks(7)
+      .tickFormat((d, i) => week[i].substring(0, 1))
+    // Y axis
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(session, (d) => d.sessionLength)] as number[])
+      .range([graphHeight, margin.top + margin.bottom])
+    // Add WeekDays to the X axis
+    svg
+      .append('g')
+      .call(xAxis)
+      .attr('transform', `translate(0, ${graphHeight + margin.top - 10})`)
+      .attr('class', 'legends')
+      .select('.domain')
+      .remove()
+
+    // Draw sessions lines
+    session.forEach((d, index) => {
+      // Line Curve
+      const line = d3
+        .line&lt;IAverageSessions>()
+        .x((data) => xScale(data.day))
+        .y((data) => yScale(data.sessionLength))
+        .curve(d3.curveBumpX)
+      // Line Path
+      const path = svg
+        .append('path')
+        .attr('d', line(session))
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 2)
+        .attr('fill', 'none')
+      // Draw Animation
+      const pathLength = path?.node()?.getTotalLength() || 0
+      path
+        .attr('stroke-dashoffset', pathLength)
+        .attr('stroke-dasharray', pathLength)
+        .transition()
+        .duration(1500)
+        .attr('stroke-dashoffset', 0)
+        .ease(d3.easeSin)
+
+      // Tooltip Groups
+      const group = svg.append('g').attr('id', 'day' + index + 'average'),
+        // Session length
+        length = session[index].sessionLength,
+        // Group position (x axis)
+        index1 = index + 1
+      //  Transparent Section
+      svgGroups(group, 'rect', xScale(index1), 0, '100%', svgHeight, '', 't--transparent', 0)
+      // White rectangle
+      svgGroups(group, 'rect', displayTooltip(index1), yScale(length) - 25, 50, 20, '', 't--white', 0)
+      // Session duration
+      svgGroups(group, 'text', displayTooltip(index1) + 25, yScale(length) - 10, '', '', length + 'min', 't--text', 0)
+      // Opac circle
+      svgGroups(group, 'circle', xScale(index1), yScale(length), 4, '', '', 't--white', 0)
+      // Transparent circle
+      svgGroups(group, 'circle', xScale(index1), yScale(length), 10, '', '', 't--lowOpacity', 0)
+
+      // Add Hover event on the area
+      svg
+        .append('rect')
+        .attr('x', xScale(index1))
+        .attr('y', 0)
+        .attr('width', svgWidth / 7)
+        .attr('height', 300)
+        .attr('fill', 'transparent')
+        .attr('opacity', '1')
+        // make it appear on hover + make the infos appears
+        .on('mouseover', function () {
+          d3.selectAll(`#day${index}average > *`).transition().attr('opacity', '1')
+          d3.selectAll(`#day${index}average > .low-opacity-circle`).transition().attr('opacity', '.3')
+        })
+        .on('mouseout', function () {
+          d3.selectAll(`#day${index}average > *`).transition().attr('opacity', '0')
+        })
+    })
+    // Just to be sure the last tooltip don't go outside the chart
+    function displayTooltip(index: number) {
+      if (xScale(index) &lt;= svgWidth - margin.left - margin.right) return xScale(index)
+      else return xScale(index) - margin.left - margin.right
+    }
+  }
+
+  return &lt;div ref={lineContainerRef}>&lt;/div>
+}
+
+export default LineChart
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="api_Api.module_ts.html">ts</a></li><li><a href="components_charts_activityItems_Activity.module_tsx.html">tsx</a></li><li><a href="components_charts_activityItems_ActivityItem.module_tsx.html">tsx</a></li><li><a href="components_charts_barChart_BarChart.module_tsx.html">tsx</a></li><li><a href="components_charts_lineChart_LineChart.module_tsx.html">tsx</a></li><li><a href="components_charts_radialChart_RadialChart.module_tsx.html">tsx</a></li><li><a href="components_charts_spiderChart_SpiderChart.module_tsx.html">tsx</a></li><li><a href="components_static_header_Header.module_tsx.html">tsx</a></li><li><a href="components_static_sideBar_Sidebar.module_tsx.html">tsx</a></li><li><a href="components_static_topMessage_TopMessage.module_tsx.html">tsx</a></li><li><a href="pages_error_Error.module_tsx.html">tsx</a></li><li><a href="pages_home_Home.module_tsx.html">tsx</a></li><li><a href="utils_d3Tools.module_ts.html">ts</a></li></ul><h3>Classes</h3><ul><li><a href="global.html#Service">Service</a></li><li><a href="Service_Service.html">Service</a></li><li><a href="global.html#User">User</a></li><li><a href="User_User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#svgRadius">svgRadius</a></li><li><a href="global.html#vh">vh</a></li><li><a href="global.html#vw">vw</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Mon Oct 17 2022 16:16:53 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

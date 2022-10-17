@@ -1,9 +1,16 @@
 import * as d3 from 'd3'
 import { useEffect, useState, useRef } from 'react'
 import { IAverageSessions, Size } from '../../../api/Interfaces'
-import { createSVG, svgGroups, svgXScale } from '../../../utils/d3Tools'
+import { createSVG, svgGroups, svgXScale, svgAddText } from '../../../utils/d3Tools'
 import { vw } from '../../../utils/responsive'
 
+/**
+ * React Component: Returns the Line Chart from Average Sessions Datas
+ * 
+ * @module
+ * @param {{ session: IAverageSessions[] }} props
+ * @returns {*}
+ */
 const LineChart = (props: { session: IAverageSessions[] }) => {
   // SVG container
   const lineContainerRef = useRef<HTMLHeadingElement>(null),
@@ -37,19 +44,13 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
 
   const DrawChart = (session: IAverageSessions[]) => {
     // Chart size
-    const graphWidth = parseInt(d3.select(lineContainerRef.current).style('width')) - margin.left - margin.right
-    const graphHeight = parseInt(d3.select(lineContainerRef.current).style('height')) - margin.top - margin.bottom
+    const graphHeight = svgHeight - margin.top - margin.bottom
     // Create the SVG container
     const svg = createSVG(lineContainerRef.current, 'line_chart', svgWidth, svgHeight)
 
     // Add a title
-    svg
-      .append('text')
-      .attr('fill', '#fff')
-      .attr('x', margin.right)
-      .attr('y', margin.top)
-      .text('Durée moyenne des sessions')
-      .attr('class', 'legends')
+    svgAddText(svg, margin.right, margin.top, 'legends', 'Durée moyenne des sessions')
+
     // X Scales
     const xScale = svgXScale([1, 7], [1, svgWidth - 3])
     const xScaleAxis = svgXScale([1, 7], [15, svgWidth - 15])
@@ -122,7 +123,7 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
         .append('rect')
         .attr('x', xScale(index1))
         .attr('y', 0)
-        .attr('width', graphWidth / 7)
+        .attr('width', svgWidth / 7)
         .attr('height', 300)
         .attr('fill', 'transparent')
         .attr('opacity', '1')
@@ -137,7 +138,7 @@ const LineChart = (props: { session: IAverageSessions[] }) => {
     })
     // Just to be sure the last tooltip don't go outside the chart
     function displayTooltip(index: number) {
-      if (xScale(index) <= graphWidth - margin.left - margin.right) return xScale(index)
+      if (xScale(index) <= svgWidth - margin.left - margin.right) return xScale(index)
       else return xScale(index) - margin.left - margin.right
     }
   }

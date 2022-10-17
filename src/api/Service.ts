@@ -4,6 +4,7 @@ import { IUserInfos, IKeyData, IAverageSessions, IActivitySession, IValues } fro
 
 /**
  * Service Class
+ *
  * @class Service
  * @typedef {Service}
  */
@@ -12,6 +13,7 @@ class Service {
 
   /**
    * Creates an instance of Service.
+   *
    * @constructor
    * @param {string} id
    */
@@ -21,6 +23,8 @@ class Service {
 
   /**
    *  Get User personnal Datas
+   *
+   * @method
    * @returns {IUserInfos}
    */
   getUserInfos(): IUserInfos {
@@ -30,6 +34,8 @@ class Service {
 
   /**
    * Get Today Score Datas
+   *
+   * @method
    * @returns {number}
    */
   getTodayScore(): number {
@@ -39,6 +45,8 @@ class Service {
 
   /**
    * Get Key Datas
+   *
+   * @method
    * @returns {IKeyData}
    */
   getKeyData(): IKeyData {
@@ -48,6 +56,8 @@ class Service {
 
   /**
    * Get Sessions Average Datas
+   *
+   * @method
    * @returns {IAverageSessions[]}
    */
   getSessionsAverage(): IAverageSessions[] {
@@ -57,6 +67,8 @@ class Service {
 
   /**
    * Get Sessions Activity Datas
+   *
+   * @method
    * @returns {IActivitySession[]}
    */
   getSessionsActivity(): IActivitySession[] {
@@ -66,6 +78,8 @@ class Service {
 
   /**
    * Get Performances Datas
+   *
+   * @method
    * @returns {IValues[]}
    */
   getPerformances() {
@@ -74,7 +88,7 @@ class Service {
     const performances: IValues[] = []
 
     data &&
-      data.map((perf: IValues) => {
+      data?.map((perf: IValues) => {
         performances.push({ value: perf && perf.value, kind: kinds && kinds[perf.kind] })
       })
 
@@ -83,6 +97,8 @@ class Service {
 
   /**
    * Return All Datas
+   *
+   * @method
    * @returns {IUser}
    */
   getAllDatas() {

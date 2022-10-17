@@ -1,16 +1,16 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
+/**
+ * React Component: Error Page
+ *
+ * @module
+ * @returns {*}
+ */
 const Error = () => {
-  /* let baseURL = ''
-  if (process.env.NODE_ENV == 'production') {
-    baseURL = 'Kasa/'
-  } else {
-    baseURL = '/'
-  }*/
-
   // Get the API error
   const location = useLocation().state as { error: string }
+  const error = location?.error ? location?.error : ''
 
   return (
     <React.Fragment>
@@ -19,7 +19,7 @@ const Error = () => {
         {/** *********** Error Title ******************/}
         <h1>404</h1>
         {/** *********** Error Message ******************/}
-        <h2>{(location && location.error) || 'Oups! La page que vous demandez n\'existe pas.'}</h2>
+        <h2>{error || 'Oups! La page que vous demandez n\'existe pas.'}</h2>
         {/** *********** Link to Home page ******************/}
         <Link to={'/'}>
           <u>Retourner à la page d’accueil</u>
@@ -28,5 +28,4 @@ const Error = () => {
     </React.Fragment>
   )
 }
-
 export default Error

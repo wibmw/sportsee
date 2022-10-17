@@ -1,8 +1,15 @@
 import * as d3 from 'd3'
 import { useEffect, useState, useRef } from 'react'
 import { IActivitySessions, Size } from '../../../api/Interfaces'
-import { createSVG, svgAxis, svgLegends, svgGroups } from '../../../utils/d3Tools'
+import { createSVG, svgAxis, svgLegendDots, svgGroups, svgAddText } from '../../../utils/d3Tools'
 
+/**
+ * React Component: Returns the Bar Chart from Activity Sessions Datas
+ *
+ * @module
+ * @param {IActivitySessions} session
+ * @returns {*}
+ */
 const BarCharts = (session: IActivitySessions) => {
   // SVG container
   const chartContainerRef = useRef<HTMLHeadingElement>(null),
@@ -42,7 +49,7 @@ const BarCharts = (session: IActivitySessions) => {
     const svg = createSVG(chartContainerRef.current, 'barChart-svg', graphWidth + margin.left + margin.right, svgHeight)
 
     // chart title
-    svg.append('text').attr('x', margin.right).attr('y', 30).text('Activité quotidienne')
+    svgAddText(svg, margin.right, 30, '', 'Activité quotidienne')
 
     // Scales
     const scales = (domain: number[], range: number[]) => {
@@ -78,12 +85,12 @@ const BarCharts = (session: IActivitySessions) => {
     svgAxis(svg, xAxis, svgHeight - margin.top, 'path', 'legends_text')
 
     // weight legend
-    svgLegends(svg, 'circle', '', graphWidth - 190, margin.bottom + 5, '', 4)
-    svgLegends(svg, 'text', 'Poids (kg)', graphWidth - 180, margin.bottom + 10, 'legends_text')
+    svgLegendDots(svg, 'circle', '', graphWidth - 190, margin.bottom + 5, '', 4)
+    svgAddText(svg, graphWidth - 180, margin.bottom + 10, 'legends_text', 'Poids (kg)')
 
     // calories legend
-    svgLegends(svg, 'circle', '', graphWidth - 100, margin.bottom + 5, 'red_circle', 4)
-    svgLegends(svg, 'text', 'Calories brûlées (kCal)', graphWidth - 90, margin.bottom + 10, 'legends_text')
+    svgLegendDots(svg, 'circle', '', graphWidth - 100, margin.bottom + 5, 'red_circle', 4)
+    svgAddText(svg, graphWidth - 90, margin.bottom + 10, 'legends_text', 'Calories brûlées (kCal)')
 
     // Bars creation
     const lines = (isWeight: boolean, isRounded: boolean, className: string) => {

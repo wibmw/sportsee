@@ -1,6 +1,7 @@
 /**
- * Returns VH size
- * @module
+ * Responsive Chart: Returns VH size
+ *
+ * @method
  * @param {*} percent
  * @returns {number}
  */
@@ -11,8 +12,9 @@ export const vh = (percent) => {
 }
 
 /**
- * Returns VW size
- * @module
+ * Responsive Chart: Returns VW size
+ *
+ * @method
  * @param {*} percent
  * @returns {number}
  */
@@ -23,8 +25,9 @@ export const vw = (percent) => {
 }
 
 /**
- * Returns reponsive Radius size
- * @module
+ * Responsive Chart: Returns reponsive Radius size
+ *
+ * @method
  * @param {*} width
  * @returns {{ radius: number, oRadius: number, iRadius: number }}
  */
