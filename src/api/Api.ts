@@ -18,7 +18,7 @@ export const getDatas = (id: string, url: string, dataParam: string) => {
     [isError, setIsError] = useState(false),
     navigate = useNavigate(),
     client = axios.create({
-      baseURL: 'http://localhost:3500/user/',
+      baseURL: 'http://localhost:3000/user/',
     })
 
   conf.validateStatus = (status: number) => {
